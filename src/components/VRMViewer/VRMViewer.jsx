@@ -1,4 +1,5 @@
 import { useFrame, useThree } from "@react-three/fiber";
+import { getCurrentTabUId } from "../../chrome/utils";
 
 const VRMViewer = ({ vrm, ikRef, mixerRef, clockRef }) => {
   const { camera } = useThree();
@@ -28,6 +29,17 @@ const VRMViewer = ({ vrm, ikRef, mixerRef, clockRef }) => {
     if (vrm && vrm.lookAt) {
       vrm.lookAt.target = camera;
     }
+
+    const message = {
+      type: "volume",
+    };
+
+    getCurrentTabUId((id) => {
+      id &&
+        chrome.tabs.sendMessage(id, message, (response) => {
+          
+        });
+    });
   });
 
   return vrm && <primitive object={vrm.scene} />;
