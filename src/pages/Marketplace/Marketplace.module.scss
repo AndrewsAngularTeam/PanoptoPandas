@@ -39,6 +39,11 @@
             height: 28px;
             width: 28px;
           }
+
+          transition: $animation;
+          &:hover {
+            transform: scale(1.05);
+          }
         }
       }
 
