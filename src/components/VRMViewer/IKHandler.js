@@ -3,11 +3,7 @@ import { VRMSchema } from "@pixiv/three-vrm";
 
 const PI2 = Math.PI * 2;
 
-export function clampByRadian(
-  v,
-  min = Number.NEGATIVE_INFINITY,
-  max = Number.POSITIVE_INFINITY
-) {
+export function clampByRadian(v, min = Number.NEGATIVE_INFINITY, max = Number.POSITIVE_INFINITY) {
   const hasMin = Number.isFinite(min);
   const hasMax = Number.isFinite(max);
   if (hasMin && hasMax && min === max) return min;
@@ -23,15 +19,11 @@ export function clampByRadian(
   return THREE.MathUtils.euclideanModulo(v, PI2);
 }
 
-export function clampVector3ByRadian(
-  v,
-  min,
-  max,
-) {
+export function clampVector3ByRadian(v, min, max) {
   return v.set(
     clampByRadian(v.x, min?.x, max?.x),
     clampByRadian(v.y, min?.y, max?.y),
-    clampByRadian(v.z, min?.z, max?.z)
+    clampByRadian(v.z, min?.z, max?.z),
   );
 }
 

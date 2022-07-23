@@ -1,18 +1,16 @@
 import "./App.scss";
-import {getCurrentTabUId} from "./chrome/utils"
-import "./options/"
+import { getCurrentTabUId } from "./chrome/utils";
+import "./options/";
 
 function App() {
   const handlePopup = () => {
     const message = {
-      type: "inject"
-    }
+      type: "inject",
+    };
 
     getCurrentTabUId((id) => {
-      id && chrome.tabs.sendMessage(
-        id,
-        message,
-        (responseFromContentScript) => {
+      id &&
+        chrome.tabs.sendMessage(id, message, (responseFromContentScript) => {
           console.log(responseFromContentScript);
         });
     });

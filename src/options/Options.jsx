@@ -14,7 +14,7 @@ import { Controls } from "../components/VRMViewer/Controls";
 import { bindToVRM } from "../components/VRMViewer/VMDAnimator";
 import convert from "../components/VRMViewer/VRMAnimator";
 import IKHandler from "../components/VRMViewer/IKHandler";
-import toOffset from "../components/VRMViewer/toOffset"
+import toOffset from "../components/VRMViewer/toOffset";
 
 // getVmd returns a promise that resolves to a VMD object.
 const getVmd = async (url) => {
@@ -54,15 +54,15 @@ function Options() {
 
   useEffect(() => {
     if (loaded) {
-      console.log("start")
+      console.log("start");
       start();
     }
-  }, [loaded]) 
+  }, [loaded]);
 
   return (
     <Canvas
       camera={{ position: [0, 1.5, 4], fov: 10, near: 0.001, far: 100 }}
-      onCreated={state => state.gl.setClearColor(0x000000, 0)}
+      onCreated={(state) => state.gl.setClearColor(0x000000, 0)}
     >
       <Suspense fallback={null}>
         <directionalLight />
