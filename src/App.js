@@ -6,7 +6,6 @@ import Leaderboard from "./pages/Leaderboard/Leaderboard";
 import Settings from "./pages/Settings/Settings";
 import { useEffect, useState } from "react";
 import { getCurrentTabUId } from "./chrome/utils";
-import "./options/";
 import { signInWithGoogle, auth } from "./utils/firebase";
 
 function App() {

@@ -23,6 +23,7 @@ module.exports = {
           background: paths.appSrc + "/chrome/background.js",
           panoptoPage: paths.appSrc + "/chrome/panoptoPage.js",
           options: paths.appSrc + "/options/index.jsx",
+          jungle: paths.appSrc + "/chrome/jungle.js",
         },
         output: {
           ...webpackConfig.output,
@@ -39,6 +40,12 @@ module.exports = {
             chunks: ["options"],
             template: paths.appHtml,
             filename: "options.html",
+          }),
+          new HtmlWebpackPlugin({
+            inject: true,
+            chunks: ["main"],
+            template: paths.appHtml,
+            filename: "popup.html",
           }),
         ],
       };

@@ -1,12 +1,17 @@
+import { volume, initVideoObservers } from "./video";
+
 const USER_ID_KEY = "userId";
 
 const messagesFromReactAppListener = (message, sender, response) => {
-  console.log("[content.js] received Message:", message);
-
   if (message.type === "inject") {
-    console.log("inject");
+    console.log("[content.js] inject");
     injectIFrame();
     response("injected");
+    return;
+  }
+
+  if (message.type === "volume") {
+    response(volume);
     return;
   }
 };
@@ -54,21 +59,25 @@ const injectIFrame = () => {
   iframe.allowTransparency = true;
   iframe.style.backgroundColor = "transparent";
 
-  iframe.style.position = "absolute";
   iframe.style.bottom = "0";
   iframe.style.right = "0";
-  iframe.style.height = "200px";
-  iframe.style.width = "180px";
+  iframe.style.height = "35%";
+  iframe.style.width = "10%";
+  iframe.style.minHeight = "200px";
+  iframe.style.minWidth = "180px";
+  iframe.style.resize = "both";
+  iframe.style.overflow = "auto";
 
   let video = document.body.getElementsByClassName("player-layout-controls-container");
-  console.log(video);
 
   if (video.length === 0) {
-    console.log("no video");
+    console.log("[content.js] no video");
+    iframe.style.position = "fixed";
     document.body.appendChild(iframe);
     return;
   }
 
+  iframe.style.position = "absolute";
   video[0].appendChild(iframe);
 };
 
@@ -82,6 +91,7 @@ const main = () => {
    * Fired when a message is sent from either an extension process or a content script.
    */
   chrome.runtime.onMessage.addListener(messagesFromReactAppListener);
+  initVideoObservers();
 };
 
 main();
