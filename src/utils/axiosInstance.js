@@ -1,9 +1,7 @@
-const axios = require("axios").default;
+import axios from "axios";
 
 const axiosInstance = axios.create({
   baseURL: "https://aat-backend.herokuapp.com",
 });
 
-module.exports = {
-  axiosInstance,
-};
+export { axiosInstance };

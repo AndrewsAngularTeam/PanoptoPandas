@@ -58,7 +58,7 @@
     "script-src": "self https://apis.google.com https://*.googleapis.com https://*.firebaseio.com https://*.firebaseapp.com"
   },
   "oauth2": {
-    "client_id": "1068583549557-2brp5140f3nkol4oc2t6q6tj6f6jrckc.apps.googleusercontent.com",
+    "client_id": "1068583549557-n3jh281fvq9dg169vc3t7g2ivbt96s2v.apps.googleusercontent.com",
     "scopes": ["https://www.googleapis.com/auth/userinfo.email"]
   }
 }

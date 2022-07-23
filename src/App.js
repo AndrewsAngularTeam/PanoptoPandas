@@ -7,36 +7,59 @@ import Settings from "./pages/Settings/Settings";
 import { useEffect, useState } from "react";
 import { getCurrentTabUId } from "./chrome/utils";
 import { signInWithGoogle, auth } from "./utils/firebase";
+import { getCurrentUser } from "./utils/requests";
+import Loading from "./components/Loading/Loading";
 
 function App() {
-  const [user, setUser] = useState(undefined);
+  const [loading, setLoading] = useState(true);
+  const [userId, setUserId] = useState();
+
+  const [user, setUser] = useState();
+
+  const [currentRoute, setCurrentRoute] = useState("Customisations");
+  const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
 
   useEffect(() => {
-    console.log("[app.js] useEffect");
-    auth.onAuthStateChanged((user) => {
-      console.log("[app.js]", user);
-      setUser(user && user.uid ? user : null);
-    });
-  }, []);
-
-  const handlePopup = () => {
     const message = {
-      type: "inject",
+      type: "getUserId",
     };
 
     getCurrentTabUId((id) => {
       id &&
-        chrome.tabs.sendMessage(id, message, (responseFromContentScript) => {
-          console.log(responseFromContentScript);
+        chrome.tabs.sendMessage(id, message, (response) => {
+          if (response && response.userId) {
+            setUserId(response);
+            return;
+          }
+
+          setIsSignInModalOpen(true);
+          setLoading(false);
         });
     });
-  };
-  
+
+    // console.log("[app.js] useEffect");
+    // auth.onAuthStateChanged((user) => {
+    //   console.log("[app.js]", user);
+    //   setUser(user && user.uid ? user : null);
+    //   setIsSignInModalOpen(false);
+    // });
+  }, []);
+
+  useEffect(() => {
+    if (!userId) {
+      return;
+    }
+    const getData = async () => {
+      const data = await getCurrentUser();
+      setUser(data);
+    };
+    getData();
+  }, [userId]);
+
   const handleSignIn = () => {
+    setIsSignInModalOpen(false);
     signInWithGoogle();
   };
-
-  const [currentRoute, setCurrentRoute] = useState("Customisations");
 
   const pageRoutes = [
     {
@@ -61,23 +84,20 @@ function App() {
     }
   };
 
+  if (loading) {
+    return <Loading />;
+  }
+
   return (
     <div className="App">
-      <NavBar pages={pageRoutes} onRouteClicked={setCurrentRoute} currentRoute={currentRoute} />
+      <NavBar user={user} pages={pageRoutes} onRouteClicked={setCurrentRoute} currentRoute={currentRoute} />
       <div className={classes.AppBody}>{displayPage()}</div>
-      <header className="App-header">
-        {user !== null && user !== undefined && (
-          <>
-            <p>Signed in as {user.displayName}.</p>
-            <button onClick={auth.signOut.bind(auth)}>Sign Out?</button>
-          </>
-        )}
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <button onClick={handlePopup}>POPUP</button>
-        <button onClick={handleSignIn}>SignInWithGoogle</button>
-      </header>
+      {isSignInModalOpen && (
+        <div className={classes.Modal}>
+          <button onClick={handleSignIn}>Sign in</button>
+          <p>to start accumulating rewards</p>
+        </div>
+      )}
     </div>
   );
 }

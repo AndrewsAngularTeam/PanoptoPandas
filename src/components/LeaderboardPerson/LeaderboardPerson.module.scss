@@ -15,6 +15,13 @@
   padding: 0 25px;
 
   column-gap: 25px;
+  transition: $animation;
+
+  &:hover {
+    height: 50px;
+    margin-right: -5px;
+    margin-left: -5px;
+  }
 
   p {
     margin: 0;

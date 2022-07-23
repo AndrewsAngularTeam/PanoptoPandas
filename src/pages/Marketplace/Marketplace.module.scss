@@ -39,6 +39,11 @@
             height: 28px;
             width: 28px;
           }
+
+          transition: $animation;
+          &:hover {
+            transform: scale(1.05);
+          }
         }
       }
 
@@ -63,4 +68,17 @@
       overflow-y: scroll;
     }
   }
+}
+
+.Modal {
+  position: absolute;
+  height: 600px;
+  width: 800px;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
 }
