@@ -1,0 +1,114 @@
+.Leaderboard {
+  height: 100%;
+
+  box-sizing: border-box;
+  padding: 0 110px;
+
+  .TopThreeContainer {
+    height: 200px;
+    display: flex;
+    justify-content: space-evenly;
+
+    align-items: center;
+
+    .TopPlacing {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      h3 {
+        font-size: 16px;
+        font-weight: 500;
+
+        margin: 0;
+        margin-top: 3px;
+      }
+
+      p {
+        font-size: 14px;
+        font-weight: 300;
+
+        margin: 0;
+
+        span {
+          font-size: 12px;
+        }
+      }
+
+      img {
+        border-radius: 100%;
+      }
+
+      .Crown {
+        border: none;
+        position: absolute;
+
+        margin-top: -35px;
+      }
+
+      .Badge {
+        width: 20px;
+        height: 20px;
+        border-radius: 100%;
+
+        color: white;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        font-weight: 600;
+        font-size: 13px;
+
+        margin-top: -12px;
+      }
+    }
+
+    .Second,
+    .Third {
+      img {
+        height: 70px;
+        width: 70px;
+      }
+    }
+
+    .First {
+      img {
+        border: solid 3px #ff5005;
+      }
+
+      .Badge {
+        background-color: #ff5005;
+      }
+    }
+
+    .Second {
+      img {
+        border: solid 2px #2d8525;
+      }
+
+      .Badge {
+        background-color: #2d8525;
+      }
+    }
+
+    .Third {
+      img {
+        border: solid 2px #2f80ed;
+      }
+
+      .Badge {
+        background-color: #2f80ed;
+      }
+    }
+  }
+
+  .ListContainer {
+    margin-top: -10px;
+
+    display: flex;
+    flex-direction: column;
+
+    row-gap: 10px;
+  }
+}

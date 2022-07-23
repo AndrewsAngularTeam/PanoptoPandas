@@ -1,0 +1,36 @@
+@import "../../assets/css/theme.scss";
+
+.MarketSideBar {
+  width: 120px;
+  margin-top: 65px;
+  margin-left: -15px;
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+
+    li {
+      height: 25px;
+      padding-left: 15px;
+
+      display: flex;
+      align-items: center;
+
+      cursor: pointer;
+      transition: $animation;
+
+      &:hover {
+        border-left: solid 3px rgba($c-primary, 0.3);
+      }
+    }
+
+    li.Active {
+      border-left: solid 3px $c-primary;
+    }
+  }
+}

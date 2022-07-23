@@ -1,0 +1,54 @@
+@import "./assets/css/theme.scss";
+
+.AppBody {
+  width: 100%;
+  flex: 1;
+
+  box-sizing: border-box;
+  padding: 0 65px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.Modal {
+  height: 600px;
+  width: 800px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 9999;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  button {
+    width: 160px;
+    height: 55px;
+
+    background: $c-primary;
+
+    color: $c-bg;
+
+    font-family: $f-poppins;
+    font-size: 20px;
+
+    border: none;
+    border-radius: 10px;
+
+    transition: $animation;
+    cursor: pointer;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+
+  p {
+    font-size: 16px;
+    color: $c-bg;
+  }
+}

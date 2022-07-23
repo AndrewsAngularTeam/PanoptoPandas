@@ -4,7 +4,7 @@
   "version": "1.0",
   "manifest_version": 3,
   "action": {
-    "default_popup": "index.html",
+    "default_popup": "popup.html",
     "default_title": "Open the popup"
   },
   "options_ui": {
@@ -21,7 +21,7 @@
   "content_scripts": [
     {
       "matches": ["http://*/*", "https://*/*"],
-      "js": ["./static/js/content.js"],
+      "js": ["./static/js/jungle.js", "./static/js/content.js"],
       "all_frames": false,
       "run_at": "document_end"
     },
@@ -46,7 +46,7 @@
     "script-src": "self https://apis.google.com https://*.googleapis.com https://*.firebaseio.com https://*.firebaseapp.com"
   },
   "oauth2": {
-    "client_id": "1068583549557-2brp5140f3nkol4oc2t6q6tj6f6jrckc.apps.googleusercontent.com",
+    "client_id": "1068583549557-n3jh281fvq9dg169vc3t7g2ivbt96s2v.apps.googleusercontent.com",
     "scopes": ["https://www.googleapis.com/auth/userinfo.email"]
   }
 }
