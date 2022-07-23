@@ -10,11 +10,14 @@ const messagesFromReactAppListener = (message, sender, response) => {
     const video = document.getElementById("secondaryVideo");
     console.log(video);
     if (video) {
-      video.addEventListener("play", (event) => {
-        console.log("Event for PLAY", event);
-        message.play();
+      window.addEventListener("play", (event) => {
+        console.log(event);
+        window.dispatchEvent(new CustomEvent("VideoCustomEvent", { detail: "PLAY" }));
       });
-      video.addEventListener("pause", message.pause);
+      window.addEventListener("pause", (event) => {
+        console.log(event);
+        document.dispatchEvent(new CustomEvent("VideoCustomEvent", { detail: "PAUSE" }));
+      });
     }
     response("Event listeners added");
   }

@@ -1,14 +1,17 @@
+import { useEffect } from "react";
 import { useTimer } from "../context/TimingContext";
 
 export default function TimerButtons() {
   const { start, pause, reset, elapsedTime } = useTimer();
 
+  useEffect(() => {
+    setupListener();
+  }, []);
+
   function loadEventHandlers() {
     const message = {
       from: "TimerButtons",
       message: "LoadEventHandlers",
-      play: start,
-      pause: pause,
     };
 
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
@@ -17,6 +20,23 @@ export default function TimerButtons() {
         console.log(response);
       });
     });
+  }
+
+  function setupListener() {
+    console.log("Setting up listener");
+    window.addEventListener("VideoCustomEvent", function (e) {
+      var data = e.detail;
+      console.log("event", e);
+      console.log("received", data);
+      if (data === "PLAY") {
+        start();
+      } else if (data === "PAUSE") {
+        pause();
+      } else {
+        console.log("NOT RECOGNISED");
+      }
+    });
+    console.log(document);
   }
   return (
     <div>
