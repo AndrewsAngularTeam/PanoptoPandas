@@ -9,7 +9,7 @@ import Check from "../../assets/check.svg";
 
 const Product = (props) => {
   const isUnlocked = props.owned || props.isSelected;
-  
+
   return (
     <div className={isUnlocked ? classNames(classes.Product, classes.Active) : classNames(classes.Product)}>
       <img src={props?.product?.image || PlaceholderProduct} />

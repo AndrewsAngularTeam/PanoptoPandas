@@ -102,7 +102,7 @@ const Marketplace = () => {
             </div>
             <p>You can earn more coins by watching lectures!</p>
           </div>
-          {loading && <Loading/>}
+          {loading && <Loading />}
           {!loading && (
             <div className={classes.ProductsContainer}>
               {filteredProducts.map((product, i) => {

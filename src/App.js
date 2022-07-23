@@ -13,7 +13,7 @@ import Loading from "./components/Loading/Loading";
 function App() {
   const [loading, setLoading] = useState(true);
   const [userId, setUserId] = useState();
-  
+
   const [user, setUser] = useState();
 
   const [currentRoute, setCurrentRoute] = useState("Customisations");
@@ -32,8 +32,8 @@ function App() {
             return;
           }
 
-          setIsSignInModalOpen(true)
-          setLoading(false)
+          setIsSignInModalOpen(true);
+          setLoading(false);
         });
     });
 
@@ -47,7 +47,7 @@ function App() {
 
   useEffect(() => {
     if (!userId) {
-      return
+      return;
     }
     const getData = async () => {
       const data = await getCurrentUser();
@@ -60,7 +60,6 @@ function App() {
     setIsSignInModalOpen(false);
     signInWithGoogle();
   };
-
 
   const pageRoutes = [
     {
@@ -86,7 +85,7 @@ function App() {
   };
 
   if (loading) {
-    return <Loading/>
+    return <Loading />;
   }
 
   return (
