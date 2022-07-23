@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { getCurrentTabUId } from "./chrome/utils";
-import "./options/";
 import { signInWithGoogle, auth } from "./utils/firebase";
 
 function App() {
