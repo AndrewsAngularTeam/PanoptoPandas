@@ -4,7 +4,7 @@ const USER_ID_KEY = "userId";
 
 const messagesFromReactAppListener = (message, sender, response) => {
   if (message.type === "inject") {
-    console.log("inject");
+    console.log("[content.js] inject");
     injectIFrame();
     response("injected");
     return;
@@ -59,21 +59,25 @@ const injectIFrame = () => {
   iframe.allowTransparency = true;
   iframe.style.backgroundColor = "transparent";
 
-  iframe.style.position = "absolute";
   iframe.style.bottom = "0";
   iframe.style.right = "0";
-  iframe.style.height = "200px";
-  iframe.style.width = "180px";
+  iframe.style.height = "35%";
+  iframe.style.width = "10%";
+  iframe.style.minHeight = "200px";
+  iframe.style.minWidth = "180px";
+  iframe.style.resize = "both";
+  iframe.style.overflow = "auto";
 
   let video = document.body.getElementsByClassName("player-layout-controls-container");
-  console.log(video);
 
   if (video.length === 0) {
-    console.log("no video");
+    console.log("[content.js] no video");
+    iframe.style.position = "fixed";
     document.body.appendChild(iframe);
     return;
   }
 
+  iframe.style.position = "absolute";
   video[0].appendChild(iframe);
 };
 
