@@ -3,7 +3,6 @@ import classes from "./App.module.scss";
 import NavBar from "./components/NavBar/NavBar";
 import Marketplace from "./pages/Marketplace/Marketplace";
 import Leaderboard from "./pages/Leaderboard/Leaderboard";
-import { useState } from "react";
 import Settings from "./pages/Settings/Settings";
 import { useEffect, useState } from "react";
 import { getCurrentTabUId } from "./chrome/utils";
