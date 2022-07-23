@@ -1,12 +1,12 @@
 import { axiosInstance } from "./axiosInstance";
-import { getCurrentTabUId } from '../chrome/utils'
+import { getCurrentTabUId } from "../chrome/utils";
 
 const USER_ID_KEY = "userId";
 
 const getUserId = () => {
   const message = {
-    type: "getUserId"
-  }
+    type: "getUserId",
+  };
 
   return new Promise((resolve, reject) => {
     getCurrentTabUId((id) => {
@@ -15,14 +15,14 @@ const getUserId = () => {
           resolve(response);
         });
     });
-  })
+  });
 };
 
 const setUserId = (id) => {
   const message = {
     type: "setUserId",
-    value: id
-  }
+    value: id,
+  };
 
   return new Promise((resolve, reject) => {
     getCurrentTabUId((id) => {
@@ -31,7 +31,7 @@ const setUserId = (id) => {
           resolve(response);
         });
     });
-  })
+  });
 };
 
 const getLeaderboard = async () => {

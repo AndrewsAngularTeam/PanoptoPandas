@@ -19,13 +19,13 @@ function App() {
       setIsSignInModalOpen(false);
     });
   }, []);
-  
+
   const handleSignIn = () => {
     setIsSignInModalOpen(false);
     signInWithGoogle();
   };
 
-  const [currentRoute, setCurrentRoute] = useState("Customisations")
+  const [currentRoute, setCurrentRoute] = useState("Customisations");
   const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
 
   const pageRoutes = [
@@ -53,20 +53,14 @@ function App() {
 
   return (
     <div className="App">
-      <NavBar
-        pages={pageRoutes}
-        onRouteClicked={setCurrentRoute}
-        currentRoute={currentRoute}
-      />
-      <div className={classes.AppBody}>
-        {displayPage()}
-      </div>
-      {isSignInModalOpen && <div className={classes.Modal}>
-        <button onClick={handleSignIn}>
-          Sign in
-        </button>
-        <p>to start accumulating rewards</p>
-      </div>}
+      <NavBar pages={pageRoutes} onRouteClicked={setCurrentRoute} currentRoute={currentRoute} />
+      <div className={classes.AppBody}>{displayPage()}</div>
+      {isSignInModalOpen && (
+        <div className={classes.Modal}>
+          <button onClick={handleSignIn}>Sign in</button>
+          <p>to start accumulating rewards</p>
+        </div>
+      )}
     </div>
   );
 }
