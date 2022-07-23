@@ -1,7 +1,7 @@
+@import "../../assets/css/theme.scss";
+
 .Product {
   height: 180px;
-
-  background-color: lightpink;
 
   border-radius: 5px;
 
@@ -9,6 +9,17 @@
   flex-direction: column;
 
   overflow: hidden;
+
+  box-sizing: border-box;
+  border: solid 1px #f6f6f6;
+
+  transition: 0.1s ease;
+
+  &:hover {
+    border: solid 1px $c-primary;
+  }
+
+  cursor: pointer;
 
   > img {
     height: 140px;
