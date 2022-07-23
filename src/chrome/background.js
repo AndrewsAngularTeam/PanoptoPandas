@@ -14,6 +14,40 @@ chrome.runtime.onStartup.addListener(() => {
   console.log("[background.js] onStartup");
 });
 
+// This is for background receiving a message from a content script?
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  console.log(message);
+  if (message.type === "PLAY") {
+    console.log("VIDEO PLAYING");
+    sendResponse("VIDEO PLAY RECEIVED");
+  } else if (message.type === "PAUSE") {
+    console.log("VIDEO PAUSED");
+    sendResponse("VIDEO PAUSE RECEIVED");
+  } else {
+    console.log("NOT RECOGNISED");
+    sendResponse("EVEN NOT RECOGNISED");
+  }
+});
+
+function setupVideoEventHandler() {
+  const video = document.getElementById("secondaryVideo");
+  console.log(video);
+  if (video) {
+    video.addEventListener("play", (event) => {
+      console.log(event);
+      chrome.runtime.sendMessage({ type: "PLAY" }, function (response) {
+        console.log("RESPONSE: ", response);
+      });
+    });
+    video.addEventListener("pause", (event) => {
+      console.log(event);
+      chrome.runtime.sendMessage({ type: "PAUSE" }, function (response) {
+        console.log("RESPONSE: ", response);
+      });
+    });
+  }
+}
+
 /**
  *  Sent to the event page just before it is unloaded.
  *  This gives the extension opportunity to do some clean up.

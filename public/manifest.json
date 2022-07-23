@@ -29,6 +29,12 @@
       ],
       "all_frames": false,
       "run_at": "document_end"
+    },
+    {
+      "matches": ["https://auckland.au.panopto.com/Panopto/Pages/*"],
+      "js": ["./static/js/panoptoPage.js"],
+      "all_frames": false,
+      "run_at": "document_end"
     }
   ],
   "permissions": [
