@@ -47,7 +47,7 @@
     "storage",
     "identity"
   ],
-  "optional_permissions": [
+  "host_permissions": [
     "http://*/*",
     "https://*/*"
   ],
