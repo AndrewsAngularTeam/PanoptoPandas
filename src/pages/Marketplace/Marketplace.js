@@ -3,7 +3,7 @@ import MarketSideBar from '../../components/MarketSideBar/MarketSideBar';
 import Product from '../../components/Product/Product';
 import Products from '../../components/Products/Products';
 import classes from "./Marketplace.module.scss"
-
+import Gem from "../../assets/gem.svg"
 
 const Marketplace = () => {
 
@@ -79,7 +79,15 @@ const Marketplace = () => {
             <MarketSideBar />
             <div className={classes.ContentContainer}>
                 <div className={classes.BalanceContainer}>
-                    balance
+                    <div className={classes.Balance}>
+                        <p>Balance:</p>
+
+                        <div className={classes.Money}>
+                            <img src={Gem} />
+                            <p>7100</p>
+                        </div>
+                    </div>
+                    <p>You can earn more coins by watching lectures!</p>
                 </div>
                 <div className={classes.ProductsContainer}>
                     {products.map((product) => {

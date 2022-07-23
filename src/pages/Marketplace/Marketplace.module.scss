@@ -16,6 +16,37 @@
       height: 50px;
 
       align-self: flex-end;
+
+      margin-bottom: 10px;
+
+      display: flex;
+      flex-direction: column;
+
+      .Balance {
+        display: flex;
+        justify-content: space-between;
+
+        p {
+          font-size: 20px;
+          margin: 0;
+        }
+
+        .Money {
+          display: flex;
+          column-gap: 8px;
+
+          img {
+            height: 28px;
+            width: 28px;
+          }
+        }
+      }
+
+      > p {
+        font-size: 10px;
+        color: $c-grey-dark;
+        margin: 0;
+      }
     }
 
     .ProductsContainer {
