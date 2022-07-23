@@ -31,12 +31,7 @@ function App() {
         });
     });
   };
-
-  chrome.windows.create(
-    { url: "options.html", type: "popup", width: w, height: h, left: left, top: top },
-    function (window) {},
-  );
-
+  
   const handleSignIn = () => {
     signInWithGoogle();
   };
@@ -70,7 +65,7 @@ function App() {
     <div className="App">
       <NavBar pages={pageRoutes} onRouteClicked={setCurrentRoute} currentRoute={currentRoute} />
       <div className={classes.AppBody}>{displayPage()}</div>
-      {/* <header className="App-header">
+      <header className="App-header">
         {user !== null && user !== undefined && (
           <>
             <p>Signed in as {user.displayName}.</p>
@@ -82,7 +77,7 @@ function App() {
         </p>
         <button onClick={handlePopup}>POPUP</button>
         <button onClick={handleSignIn}>SignInWithGoogle</button>
-      </header> */}
+      </header>
     </div>
   );
 }
