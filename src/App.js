@@ -1,27 +1,49 @@
 import "./App.scss";
-import classes from "./App.module.scss"
+import classes from "./App.module.scss";
 import NavBar from "./components/NavBar/NavBar";
 import Marketplace from "./pages/Marketplace/Marketplace";
 import Leaderboard from "./pages/Leaderboard/Leaderboard";
 import { useState } from "react";
 import Settings from "./pages/Settings/Settings";
+import { useEffect, useState } from "react";
+import { getCurrentTabUId } from "./chrome/utils";
+import "./options/";
+import { signInWithGoogle, auth } from "./utils/firebase";
 
 function App() {
-  const handlePopup = () => {
-    if (chrome.runtime.openOptionsPage) {
-      let w = 440;
-      let h = 220;
-      let left = screen.width / 2 - w / 2;
-      let top = screen.height / 2 - h / 2;
+  const [user, setUser] = useState(undefined);
 
-      chrome.windows.create(
-        { url: "options.html", type: "popup", width: w, height: h, left: left, top: top },
-        function (window) { },
-      );
-    }
+  useEffect(() => {
+    console.log("[app.js] useEffect");
+    auth.onAuthStateChanged((user) => {
+      console.log("[app.js]", user);
+      setUser(user && user.uid ? user : null);
+    });
+  }, []);
+
+  const handlePopup = () => {
+    const message = {
+      type: "inject",
+    };
+
+    getCurrentTabUId((id) => {
+      id &&
+        chrome.tabs.sendMessage(id, message, (responseFromContentScript) => {
+          console.log(responseFromContentScript);
+        });
+    });
   };
 
-  const [currentRoute, setCurrentRoute] = useState("Customisations")
+  chrome.windows.create(
+    { url: "options.html", type: "popup", width: w, height: h, left: left, top: top },
+    function (window) {},
+  );
+
+  const handleSignIn = () => {
+    signInWithGoogle();
+  };
+
+  const [currentRoute, setCurrentRoute] = useState("Customisations");
 
   const pageRoutes = [
     {
@@ -35,27 +57,34 @@ function App() {
     {
       name: "Settings",
       component: <Settings />,
-    }
-  ]
+    },
+  ];
 
   const displayPage = () => {
     for (let page of pageRoutes) {
       if (page.name.trim() === currentRoute.trim()) {
-        return page.component
+        return page.component;
       }
     }
-  }
+  };
 
   return (
     <div className="App">
-      <NavBar
-        pages={pageRoutes}
-        onRouteClicked={setCurrentRoute}
-        currentRoute={currentRoute}
-      />
-      <div className={classes.AppBody}>
-        {displayPage()}
-      </div>
+      <NavBar pages={pageRoutes} onRouteClicked={setCurrentRoute} currentRoute={currentRoute} />
+      <div className={classes.AppBody}>{displayPage()}</div>
+      {/* <header className="App-header">
+        {user !== null && user !== undefined && (
+          <>
+            <p>Signed in as {user.displayName}.</p>
+            <button onClick={auth.signOut.bind(auth)}>Sign Out?</button>
+          </>
+        )}
+        <p>
+          Edit <code>src/App.js</code> and save to reload.
+        </p>
+        <button onClick={handlePopup}>POPUP</button>
+        <button onClick={handleSignIn}>SignInWithGoogle</button>
+      </header> */}
     </div>
   );
 }

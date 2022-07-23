@@ -21,6 +21,7 @@ module.exports = {
           ].filter(Boolean),
           content: paths.appSrc + "/chrome/content.js",
           background: paths.appSrc + "/chrome/background.js",
+          panoptoPage: paths.appSrc + "/chrome/panoptoPage.js",
           options: paths.appSrc + "/options/index.jsx",
         },
         output: {

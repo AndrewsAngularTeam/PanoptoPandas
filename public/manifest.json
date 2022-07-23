@@ -24,8 +24,29 @@
       "js": ["./static/js/content.js"],
       "all_frames": false,
       "run_at": "document_end"
+    },
+    {
+      "matches": ["https://auckland.au.panopto.com/Panopto/Pages/*"],
+      "js": ["./static/js/panoptoPage.js"],
+      "css": ["./panoptoPageStyle.css"],
+      "all_frames": false,
+      "run_at": "document_end"
     }
   ],
-  "permissions": ["activeTab", "tabs"],
-  "optional_permissions": ["http://*/*", "https://*/*"]
+  "permissions": ["activeTab", "tabs", "storage", "identity"],
+  "host_permissions": ["http://*/*", "https://*/*"],
+  "web_accessible_resources": [
+    {
+      "resources": ["options.html"],
+      "matches": ["http://*/*", "https://*/*"]
+    }
+  ],
+  "content_security_policy": {
+    "default-src": "self https://*.firebaseio.com wss://*.firebaseio.com",
+    "script-src": "self https://apis.google.com https://*.googleapis.com https://*.firebaseio.com https://*.firebaseapp.com"
+  },
+  "oauth2": {
+    "client_id": "1068583549557-2brp5140f3nkol4oc2t6q6tj6f6jrckc.apps.googleusercontent.com",
+    "scopes": ["https://www.googleapis.com/auth/userinfo.email"]
+  }
 }
