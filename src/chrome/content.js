@@ -1,3 +1,5 @@
+const USER_ID_KEY = "userId";
+
 const messagesFromReactAppListener = (message, sender, response) => {
   console.log("[content.js] received Message:", message);
 
@@ -7,6 +9,33 @@ const messagesFromReactAppListener = (message, sender, response) => {
     response("injected");
     return;
   }
+};
+
+/**
+ * @param {string} cookie
+ * @param {string} key
+ * @return {string}
+ */
+const findCookie = (cookie, keyToFind) => {
+  console.log("[content.js] find cookie function");
+  const cookieList = cookie.split(";");
+  for (const cookiePair of cookieList) {
+    const [key, value] = cookiePair.split("=");
+    if (key.includes(keyToFind)) {
+      return key.replace(keyToFind, "").trim();
+    }
+  }
+  return undefined;
+};
+
+const findAndSetUserId = () => {
+  console.log("[content.js] attempt to find user");
+  const userId = findCookie(document.cookie, "unified\\");
+  if (userId === undefined) {
+    return;
+  }
+  console.log("[content.js] found user id", userId);
+  window.localStorage.setItem(USER_ID_KEY, userId);
 };
 
 const injectIFrame = () => {
@@ -45,6 +74,10 @@ const injectIFrame = () => {
 
 const main = () => {
   console.log("[content.js] Main");
+
+  if (window.localStorage.getItem(USER_ID_KEY) === null) {
+    findAndSetUserId();
+  }
   /**
    * Fired when a message is sent from either an extension process or a content script.
    */
