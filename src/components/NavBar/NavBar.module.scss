@@ -1,0 +1,62 @@
+@import "../../assets//css/theme.scss";
+
+.NavBar {
+  background: lightblue;
+  height: 80px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  box-sizing: border-box;
+  padding: 0 40px;
+
+  .LogoContainer {
+    display: flex;
+
+    align-items: center;
+
+    img {
+      height: 30px;
+      width: 30px;
+    }
+
+    p {
+      font-weight: 400;
+      font-size: 16px;
+
+      margin-left: 15px;
+    }
+  }
+
+  .NavContainer {
+    ul {
+      list-style: none;
+
+      display: flex;
+
+      width: 100%;
+
+      column-gap: 70px;
+    }
+  }
+
+  .ProfileContainer {
+    display: flex;
+    align-items: center;
+
+    img {
+      height: 30px;
+      width: 30px;
+
+      border: solid 1px $c-grey-light;
+
+      border-radius: 100%;
+    }
+
+    p {
+      font-size: 14px;
+      margin-left: 15px;
+    }
+  }
+}
