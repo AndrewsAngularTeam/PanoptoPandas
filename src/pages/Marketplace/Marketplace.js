@@ -1,7 +1,6 @@
 import React from 'react';
 import MarketSideBar from '../../components/MarketSideBar/MarketSideBar';
 import Product from '../../components/Product/Product';
-import Products from '../../components/Products/Products';
 import classes from "./Marketplace.module.scss"
 import Gem from "../../assets/gem.svg"
 

@@ -9,6 +9,8 @@
   border: solid 1px black; // TODO remove
 
   font-family: $f-poppins;
+  display: flex;
+  flex-direction: column;
 }
 
 ::-webkit-scrollbar-track {
