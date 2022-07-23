@@ -5,7 +5,7 @@ const USER_ID_KEY = "userId";
 const messagesFromReactAppListener = (message, sender, response) => {
   if (message.type === "inject") {
     console.log("[content.js] inject");
-    injectIFrame();
+    injectIFrame(message.vrmUrl);
     response("injected");
     return;
   }
@@ -43,7 +43,7 @@ const findAndSetUserId = () => {
   window.localStorage.setItem(USER_ID_KEY, userId);
 };
 
-const injectIFrame = () => {
+const injectIFrame = (vrmUrl) => {
   const id = "vtuber-iframe-chrome-extension";
 
   const frame = document.getElementById(id);
@@ -53,7 +53,15 @@ const injectIFrame = () => {
 
   let iframe = document.createElement("iframe");
   iframe.id = id;
-  iframe.src = "chrome-extension://" + chrome.runtime.id + "/options.html";
+
+  if (vrmUrl) {
+    const encodedVrmUrl = encodeURIComponent(vrmUrl);
+
+    iframe.src = "chrome-extension://" + chrome.runtime.id + "/options.html?vrm=" + encodedVrmUrl;
+  } else {
+    iframe.src = "chrome-extension://" + chrome.runtime.id + "/options.html";
+  }
+
   iframe.title = "vtuber";
   iframe.frameBorder = "0";
   iframe.allowTransparency = true;

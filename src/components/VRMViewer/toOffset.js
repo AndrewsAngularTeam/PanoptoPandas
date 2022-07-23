@@ -23,7 +23,7 @@ export default function toOffset(vrm) {
 }
 
 const tempV3 = new THREE.Vector3();
-function calculatePosition(from, to) {
+export function calculatePosition(from, to) {
   if (!from || !to) return;
   let current = to;
   const chain = [to];
