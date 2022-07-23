@@ -19,6 +19,23 @@
     flex: 1;
 
     display: flex;
+
+    row-gap: 15px;
+
+    h3 {
+      font-size: 16px;
+      font-weight: 500;
+
+      margin: 0;
+    }
+
+    p {
+      font-size: 14px;
+      font-weight: 400;
+      color: $c-grey-dark;
+
+      margin: 0;
+    }
   }
 
   .ProfileContainer {
@@ -58,9 +75,52 @@
   }
 
   .EmailContainer {
+    flex-direction: column;
   }
 
   .GameAttributesContainer {
+    flex-direction: column;
+
+    row-gap: 20px;
+
+    > div {
+      display: flex;
+      column-gap: 25px;
+    }
+
+    .Balance {
+      div {
+        display: flex;
+        align-items: center;
+
+        font-size: 20px;
+
+        img {
+          height: 30px;
+          width: 30px;
+
+          margin-right: 5px;
+        }
+      }
+    }
+
+    .PrivateMode {
+      display: flex;
+      flex-direction: column;
+
+      > p {
+        margin-top: 5px;
+        font-size: 10px;
+      }
+
+      .SwitchContainer {
+        display: flex;
+
+        align-items: center;
+
+        column-gap: 30px;
+      }
+    }
   }
 
   button {
