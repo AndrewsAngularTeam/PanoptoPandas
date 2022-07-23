@@ -1,5 +1,5 @@
 import { AnimationClip, QuaternionKeyframeTrack, VectorKeyframeTrack, NumberKeyframeTrack } from "three";
-import { IKHandler } from "./IKHandler";
+import IKHandler from "./IKHandler";
 
 // bindToVRM returns a new AnimationClip with the given animation and vrm.
 export const bindToVRM = (data, vrm) => {
