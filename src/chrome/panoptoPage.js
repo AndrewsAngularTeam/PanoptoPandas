@@ -8,7 +8,8 @@ let lastIntervalTime = 0;
 let remainingTime = 10000;
 let isRunning = false;
 
-let isLoggedIn = false;
+// need to add logic for detecting if logged in
+let isLoggedIn = true;
 
 function handlePlay() {
   isRunning = true;
