@@ -20,12 +20,34 @@
   },
   "content_scripts": [
     {
-      "matches": ["http://*/*", "https://*/*"],
-      "js": ["./static/js/content.js"],
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ],
+      "js": [
+        "./static/js/content.js"
+      ],
       "all_frames": false,
       "run_at": "document_end"
     }
   ],
-  "permissions": ["activeTab", "tabs"],
-  "optional_permissions": ["http://*/*", "https://*/*"]
+  "permissions": [
+    "activeTab",
+    "tabs"
+  ],
+  "optional_permissions": [
+    "http://*/*",
+    "https://*/*"
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "options.html"
+      ],
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ]
+    }
+  ]
 }
