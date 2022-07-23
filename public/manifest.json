@@ -39,7 +39,11 @@
   ],
   "permissions": [
     "activeTab",
-    "tabs"
+    "tabs",
+    "scripting"
+  ],
+  "host_permissions": [
+    "*://*/*"
   ],
   "optional_permissions": [
     "http://*/*",
