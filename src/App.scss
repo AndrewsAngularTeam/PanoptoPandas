@@ -5,38 +5,33 @@
   height: 600px;
 
   overflow: hidden;
-}
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
+  border: solid 1px black; // TODO remove
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  min-height: 100vh;
+  font-family: $f-poppins;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: #eee;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+::-webkit-scrollbar {
+  width: 9px;
+  border-radius: 10px;
+
+  background-color: #eee;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: $c-grey-light;
+
+  transition: $animation;
+
+  &:hover {
+    background-color: rgba($c-primary, 0.3);
   }
 }

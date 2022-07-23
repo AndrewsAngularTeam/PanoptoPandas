@@ -1,0 +1,147 @@
+@import "../../assets/css/theme.scss";
+
+.Settings {
+  display: flex;
+  flex-direction: column;
+
+  flex: 1;
+
+  box-sizing: border-box;
+  padding-bottom: 50px;
+
+  justify-content: space-around;
+
+  > div {
+    border-bottom: solid 1px $c-grey-light;
+
+    padding: 25px 50px;
+
+    flex: 1;
+
+    display: flex;
+
+    row-gap: 15px;
+
+    h3 {
+      font-size: 16px;
+      font-weight: 500;
+
+      margin: 0;
+    }
+
+    p {
+      font-size: 14px;
+      font-weight: 400;
+      color: $c-grey-dark;
+
+      margin: 0;
+    }
+  }
+
+  .ProfileContainer {
+    img {
+      height: 100px;
+      width: 100px;
+
+      border-radius: 100%;
+
+      border: solid 1px $c-grey-light;
+    }
+
+    .ProfileInfo {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+
+      margin-left: 30px;
+
+      h1 {
+        font-size: 24px;
+        font-weight: 500;
+
+        margin: 0;
+        margin-top: 25px;
+      }
+
+      p {
+        font-size: 16px;
+        color: $c-grey-dark;
+
+        font-weight: 400;
+
+        margin: 0;
+      }
+    }
+  }
+
+  .EmailContainer {
+    flex-direction: column;
+  }
+
+  .GameAttributesContainer {
+    flex-direction: column;
+
+    row-gap: 20px;
+
+    > div {
+      display: flex;
+      column-gap: 25px;
+    }
+
+    .Balance {
+      div {
+        display: flex;
+        align-items: center;
+
+        font-size: 20px;
+
+        img {
+          height: 30px;
+          width: 30px;
+
+          margin-right: 5px;
+        }
+      }
+    }
+
+    .PrivateMode {
+      display: flex;
+      flex-direction: column;
+
+      > p {
+        margin-top: 5px;
+        font-size: 10px;
+      }
+
+      .SwitchContainer {
+        display: flex;
+
+        align-items: center;
+
+        column-gap: 30px;
+      }
+    }
+  }
+
+  button {
+    align-self: flex-end;
+
+    padding: 6px 20px;
+
+    border: solid 1px red;
+    background: none;
+    border-radius: 5px;
+
+    font-family: $f-poppins;
+    color: red;
+
+    cursor: pointer;
+    transition: $animation;
+
+    margin-top: 30px;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+}

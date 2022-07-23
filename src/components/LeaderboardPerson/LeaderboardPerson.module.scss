@@ -1,0 +1,57 @@
+@import "../../assets/css/theme.scss";
+
+.LeaderboardPerson {
+  height: 40px;
+
+  background-color: rgba($c-primary, 0.1);
+
+  border-radius: 15px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  box-sizing: border-box;
+  padding: 0 25px;
+
+  column-gap: 25px;
+
+  p {
+    margin: 0;
+  }
+
+  > p {
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .PersonContainer {
+    display: flex;
+
+    flex: 1;
+
+    img {
+      height: 24px;
+      width: 24px;
+
+      margin-right: 10px;
+
+      border-radius: 100%;
+      border: solid 1px $c-grey-light;
+    }
+  }
+
+  .WatchTime {
+    font-size: 14px;
+    font-weight: 300;
+    width: 100px;
+    text-align: right;
+
+    span {
+      font-size: 10px;
+      font-weight: 400;
+
+      margin-left: 3px;
+    }
+  }
+}
