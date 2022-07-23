@@ -1,6 +1,7 @@
 import classes from "./Settings.module.scss";
 import PlaceholderAvatar from "../../assets/placeholderAvatar.png"
 import Gem from "../../assets/gem.svg";
+import classNames from 'classnames';
 
 const Settings = (props) => {
     return (
@@ -31,7 +32,14 @@ const Settings = (props) => {
                 <div className={classes.PrivateMode}>
                     <div className={classes.SwitchContainer}>
                         <h3>Private mode:</h3>
-                        <div>switch</div>
+                        <label className={classes.Switch}>
+                            <input type="checkbox" />
+                            <span
+                                className={
+                                    classNames(classes.Slider, classes.Round)
+                                }>
+                            </span>
+                        </label>
                     </div>
                     <p>Turning on private mode means that your hours won’t be published on the leaderboard</p>
 
