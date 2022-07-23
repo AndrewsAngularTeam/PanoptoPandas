@@ -1,3 +1,5 @@
+import { Jungle } from "./jungle";
+
 let _audioCtx = null;
 let _jungle = null;
 let _previousPitch = 0;
@@ -5,12 +7,14 @@ let _volume = 0;
 
 let transpose = false;
 
+let videoConnected = false;
+
 const getAudioContext = () => {
   if (!_audioCtx) {
     _audioCtx = new AudioContext();
   }
   return _audioCtx;
-}
+};
 
 const getJungle = () => {
   if (!_jungle) {
@@ -19,7 +23,7 @@ const getJungle = () => {
     _jungle.output.connect(audioCtx.destination);
   }
   return _jungle;
-}
+};
 
 const outputNodeMap = new Map();
 
@@ -37,9 +41,9 @@ const getOutputNode = (video) => {
   }
 
   return outputNode;
-}
+};
 
-const connectAudioVolume = async(outputNode) => {
+const connectAudioVolume = async (outputNode) => {
   const analyserNode = getAudioContext().createAnalyser();
   outputNode.connect(analyserNode);
 
@@ -50,19 +54,19 @@ const connectAudioVolume = async(outputNode) => {
     for (const amplitude of pcmData) {
       sumSquares += amplitude * amplitude;
     }
-    
+
     _volume = Math.sqrt(sumSquares / pcmData.length);
 
     window.requestAnimationFrame(onFrame);
   };
 
   window.requestAnimationFrame(onFrame);
-}
+};
 
 const connectVideo = (video) => {
   const nodeData = getOutputNode(video);
 
-  connectAudioVolume(nodeData.outputNode)
+  connectAudioVolume(nodeData.outputNode);
 
   const outputNode = nodeData.outputNode;
 
@@ -80,7 +84,7 @@ const connectVideo = (video) => {
 
   jungle.setPitchOffset(_previousPitch, transpose);
   videoConnected = true;
-}
+};
 
 const disconnectVideo = (video) => {
   const audioCtx = getAudioContext();
@@ -100,7 +104,7 @@ const disconnectVideo = (video) => {
     outputNode.connect(audioCtx.destination);
     nodeData.destinationConnected = true;
   }
-}
+};
 
 const videoListeners = new Map();
 
@@ -115,7 +119,7 @@ function disconnectAllVideos() {
   videoConnected = false;
 }
 
-_observer = null;
+let _observer = null;
 
 /**
  * @param {HTMLVideoElement} newVideoEl
@@ -127,13 +131,7 @@ const changeVideo = (newVideoEl) => {
 /**
  * @param {HTMLVideoElement} video
  */
-const isVideoPlaying = (video) =>
-  !!(
-    video.currentTime > 0 &&
-    !video.paused &&
-    !video.ended &&
-    video.readyState > 2
-  );
+const isVideoPlaying = (video) => !!(video.currentTime > 0 && !video.paused && !video.ended && video.readyState > 2);
 
 /**
  * @param {HTMLVideoElement} listenVideoEl

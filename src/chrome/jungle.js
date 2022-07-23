@@ -1,6 +1,6 @@
 function createFadeBuffer(context, activeTime, fadeTime) {
   let length1 = activeTime * context.sampleRate;
-  let length2 = (activeTime - 2*fadeTime) * context.sampleRate;
+  let length2 = (activeTime - 2 * fadeTime) * context.sampleRate;
   let length = length1 + length2;
   let buffer = context.createBuffer(1, length, context.sampleRate);
   let p = buffer.getChannelData(0);
@@ -12,58 +12,56 @@ function createFadeBuffer(context, activeTime, fadeTime) {
 
   // 1st part of cycle
   for (let i = 0; i < length1; ++i) {
-      let value;
+    let value;
 
-      if (i < fadeIndex1) {
-          value = Math.sqrt(i / fadeLength);
-      } else if (i >= fadeIndex2) {
-          value = Math.sqrt(1 - (i - fadeIndex2) / fadeLength);
-      } else {
-          value = 1;
-      }
+    if (i < fadeIndex1) {
+      value = Math.sqrt(i / fadeLength);
+    } else if (i >= fadeIndex2) {
+      value = Math.sqrt(1 - (i - fadeIndex2) / fadeLength);
+    } else {
+      value = 1;
+    }
 
-      p[i] = value;
+    p[i] = value;
   }
 
   // 2nd part
   for (let i = length1; i < length; ++i) {
-      p[i] = 0;
+    p[i] = 0;
   }
-
 
   return buffer;
 }
 
 function createDelayTimeBuffer(context, activeTime, fadeTime, shiftUp) {
   let length1 = activeTime * context.sampleRate;
-  let length2 = (activeTime - 2*fadeTime) * context.sampleRate;
+  let length2 = (activeTime - 2 * fadeTime) * context.sampleRate;
   let length = length1 + length2;
   let buffer = context.createBuffer(1, length, context.sampleRate);
   let p = buffer.getChannelData(0);
 
   // 1st part of cycle
   for (let i = 0; i < length1; ++i) {
-      if (shiftUp)
-        // This line does shift-up transpose
-        p[i] = (length1-i)/length;
-      else
-        // This line does shift-down transpose
-        p[i] = i / length1;
+    if (shiftUp)
+      // This line does shift-up transpose
+      p[i] = (length1 - i) / length;
+    // This line does shift-down transpose
+    else p[i] = i / length1;
   }
 
   // 2nd part
   for (let i = length1; i < length; ++i) {
-      p[i] = 0;
+    p[i] = 0;
   }
 
   return buffer;
 }
 
-let delayTime = 0.100;
-let fadeTime = 0.050;
-let bufferTime = 0.100;
+let delayTime = 0.1;
+let fadeTime = 0.05;
+let bufferTime = 0.1;
 
-function Jungle(context) {
+export function Jungle(context) {
   this.context = context;
   // Create nodes for the input and output of this "module".
   let input = context.createGain();
@@ -119,7 +117,7 @@ function Jungle(context) {
   let fade1 = context.createBufferSource();
   let fade2 = context.createBufferSource();
   let fadeBuffer = createFadeBuffer(context, bufferTime, fadeTime);
-  fade1.buffer = fadeBuffer
+  fade1.buffer = fadeBuffer;
   fade2.buffer = fadeBuffer;
   fade1.loop = true;
   fade2.loop = true;
@@ -141,7 +139,7 @@ function Jungle(context) {
   mix2.connect(output);
 
   // Start
-  let t = context.currentTime + 0.050;
+  let t = context.currentTime + 0.05;
   let t2 = t + bufferTime - fadeTime;
   mod1.start(t);
   mod2.start(t2);
@@ -168,34 +166,35 @@ function Jungle(context) {
   this.setDelay(delayTime);
 }
 
-Jungle.prototype.setDelay = function(delayTime) {
-  this.modGain1.gain.setTargetAtTime(0.5*delayTime, this.context.currentTime, 0.010);
-  this.modGain2.gain.setTargetAtTime(0.5*delayTime, this.context.currentTime, 0.010);
-}
+Jungle.prototype.setDelay = function (delayTime) {
+  this.modGain1.gain.setTargetAtTime(0.5 * delayTime, this.context.currentTime, 0.01);
+  this.modGain2.gain.setTargetAtTime(0.5 * delayTime, this.context.currentTime, 0.01);
+};
 
 let previousPitch = -1;
 
-Jungle.prototype.setPitchOffset = function(mult, transpose) {
+Jungle.prototype.setPitchOffset = function (mult, transpose) {
   if (transpose) {
     // Divide by 2 for semitones
     mult = this.transpose(mult / 2);
   }
-  if (mult>0) { // pitch up
-      this.mod1Gain.gain.value = 0;
-      this.mod2Gain.gain.value = 0;
-      this.mod3Gain.gain.value = 1;
-      this.mod4Gain.gain.value = 1;
-  } else { // pitch down
-      this.mod1Gain.gain.value = 1;
-      this.mod2Gain.gain.value = 1;
-      this.mod3Gain.gain.value = 0;
-      this.mod4Gain.gain.value = 0;
+  if (mult > 0) {
+    // pitch up
+    this.mod1Gain.gain.value = 0;
+    this.mod2Gain.gain.value = 0;
+    this.mod3Gain.gain.value = 1;
+    this.mod4Gain.gain.value = 1;
+  } else {
+    // pitch down
+    this.mod1Gain.gain.value = 1;
+    this.mod2Gain.gain.value = 1;
+    this.mod3Gain.gain.value = 0;
+    this.mod4Gain.gain.value = 0;
   }
-  this.setDelay(delayTime*Math.abs(mult));
+  this.setDelay(delayTime * Math.abs(mult));
   this.previousPitch = mult;
   previousPitch = mult;
-}
-
+};
 
 // Strange stuff taken from:
 // https://github.com/mmckegg/soundbank-pitch-shift/blob/master/index.js
@@ -204,27 +203,25 @@ Jungle.prototype.setPitchOffset = function(mult, transpose) {
 //
 // Anyway, it sounds okay for an experiment.
 //
-Jungle.prototype.transpose = function (x){
+Jungle.prototype.transpose = function (x) {
+  if (x < 0) {
+    return x / 12;
+  } else if (x == 0) {
+    return 0;
+  } else {
+    let a5 = 1.8149080040913423e-7;
+    let a4 = -0.000019413043101157434;
+    let a3 = 0.0009795096626987743;
+    let a2 = -0.014147877819596033;
+    let a1 = 0.23005591195033048;
+    let a0 = 0.02278153473118749;
 
-if (x<0){
-  return x/12
-} else if (x == 0) {
-  return 0;
-} else {
-  let a5 = 1.8149080040913423e-7
-  let a4 = -0.000019413043101157434
-  let a3 = 0.0009795096626987743
-  let a2 = -0.014147877819596033
-  let a1 = 0.23005591195033048
-  let a0 = 0.02278153473118749
+    let x1 = x;
+    let x2 = x * x;
+    let x3 = x * x * x;
+    let x4 = x * x * x * x;
+    let x5 = x * x * x * x * x;
 
-  let x1 = x
-  let x2 = x*x
-  let x3 = x*x*x
-  let x4 = x*x*x*x
-  let x5 = x*x*x*x*x
-
-  return a0 + x1*a1 + x2*a2 + x3*a3 + x4*a4 + x5*a5
-}
-
-}
+    return a0 + x1 * a1 + x2 * a2 + x3 * a3 + x4 * a4 + x5 * a5;
+  }
+};
