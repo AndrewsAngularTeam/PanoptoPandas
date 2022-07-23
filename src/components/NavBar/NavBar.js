@@ -15,6 +15,10 @@ const NavBar = (props) => {
                 <ul>
 
                     {props.pages.map((page) => {
+                        if (page.name === "Settings") {
+                            return null;
+                        }
+
                         return <li
                             key={page.name}
                             onClick={() => {
@@ -30,8 +34,13 @@ const NavBar = (props) => {
                 </ul>
             </nav>
 
-            <div className={classes.ProfileContainer}>
-                <img src={DefaultPic} />
+            <div
+                className={classes.ProfileContainer}
+                onClick={() => props.onRouteClicked("Settings")}
+            >
+                <img
+                    src={DefaultPic}
+                />
                 <p>Name Here</p>
             </div>
 

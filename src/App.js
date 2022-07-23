@@ -4,6 +4,7 @@ import NavBar from "./components/NavBar/NavBar";
 import Marketplace from "./pages/Marketplace/Marketplace";
 import Leaderboard from "./pages/Leaderboard/Leaderboard";
 import { useState } from "react";
+import Settings from "./pages/Settings/Settings";
 
 function App() {
   const handlePopup = () => {
@@ -30,6 +31,10 @@ function App() {
     {
       name: "Leaderboard",
       component: <Leaderboard />,
+    },
+    {
+      name: "Settings",
+      component: <Settings />,
     }
   ]
 

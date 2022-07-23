@@ -5,7 +5,8 @@ const MarketSideBar = () => {
     return (
         <div className={classes.MarketSideBar}>
             <ul>
-                <li>
+                {/* TODO change this when there are themes and models for sale */}
+                <li className={classes.Active}>
                     Models
                 </li>
                 <li>
