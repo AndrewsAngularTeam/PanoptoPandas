@@ -1,5 +1,7 @@
 import "./App.scss";
+import classes from "./App.module.scss"
 import NavBar from "./components/NavBar/NavBar";
+import Marketplace from "./pages/Marketplace/Marketplace";
 
 function App() {
   const handlePopup = () => {
@@ -11,7 +13,7 @@ function App() {
 
       chrome.windows.create(
         { url: "options.html", type: "popup", width: w, height: h, left: left, top: top },
-        function (window) {},
+        function (window) { },
       );
     }
   };
@@ -19,6 +21,9 @@ function App() {
   return (
     <div className="App">
       <NavBar />
+      <div className={classes.AppBody}>
+        <Marketplace />
+      </div>
     </div>
   );
 }
