@@ -23,6 +23,7 @@ const Product = (props) => {
                     isUnlocked ?
                         <div className={classes.CheckboxContainer}>
                             <button
+                                onClick={props.onClick}
                                 className={
                                     props.isSelected ? classes.Selected : null}>
                                 <img src={Check} />

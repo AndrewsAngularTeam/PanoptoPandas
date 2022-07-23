@@ -69,8 +69,8 @@ const injectIFrame = (vrmUrl) => {
 
   iframe.style.bottom = "0";
   iframe.style.right = "0";
-  iframe.style.height = "35%";
-  iframe.style.width = "10%";
+  iframe.style.height = "35vh";
+  iframe.style.width = "25vh";
   iframe.style.minHeight = "200px";
   iframe.style.minWidth = "180px";
   iframe.style.resize = "both";
