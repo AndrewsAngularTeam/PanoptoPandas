@@ -77,7 +77,24 @@ const Marketplace = () => {
 
 
     const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
-    const [isWarningOpen, setIsWarningOpen] = useState(true);
+    const [isWarningOpen, setIsWarningOpen] = useState(false);
+
+    const [selectedItemPrice, setSelectedItemPrice] = useState(0)
+
+    const onProductClicked = (price) => {
+        selectedItemPrice(price);
+
+        //if balance
+        //setIsConfirmationOpen(true)
+        //else 
+        //setIsWarningOpen(true)
+    }
+
+    const onConfirmPurchase = () => {
+        //do things
+
+        setIsConfirmationOpen(false);
+    }
 
     return (
         <>
@@ -102,17 +119,30 @@ const Marketplace = () => {
                                 key={product.id}
                                 owned={i === 1}
                                 isSelected={i === 3}
-
+                                onClick={() => onProductClicked(product.cost)}
                             />
                         })}
 
                     </div>
                 </div>
             </div>
-            <div className={classes.Modal}>
-                {/* {isConfirmationOpen && <ConfirmationPopup />} */}
-                {isWarningOpen && <WarningPopup />}
-            </div>
+            {isConfirmationOpen &&
+                <div className={classes.Modal}>
+                    <ConfirmationPopup
+                        onCancel={() => setIsConfirmationOpen(false)}
+                        onConfirm={onConfirmPurchase}
+                        price={selectedItemPrice}
+                    />
+                </div>
+            }
+
+            {isWarningOpen &&
+                <div className={classes.Modal}>
+                    <WarningPopup
+                        onCancel={() => setIsConfirmationOpen(false)}
+                    />
+                </div>
+            }
         </>
     )
 }
