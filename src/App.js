@@ -16,27 +16,17 @@ function App() {
     auth.onAuthStateChanged((user) => {
       console.log("[app.js]", user);
       setUser(user && user.uid ? user : null);
+      setIsSignInModalOpen(false);
     });
   }, []);
-
-  const handlePopup = () => {
-    const message = {
-      type: "inject",
-    };
-
-    getCurrentTabUId((id) => {
-      id &&
-        chrome.tabs.sendMessage(id, message, (responseFromContentScript) => {
-          console.log(responseFromContentScript);
-        });
-    });
-  };
   
   const handleSignIn = () => {
+    setIsSignInModalOpen(false);
     signInWithGoogle();
   };
 
-  const [currentRoute, setCurrentRoute] = useState("Customisations");
+  const [currentRoute, setCurrentRoute] = useState("Customisations")
+  const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
 
   const pageRoutes = [
     {
@@ -63,21 +53,20 @@ function App() {
 
   return (
     <div className="App">
-      <NavBar pages={pageRoutes} onRouteClicked={setCurrentRoute} currentRoute={currentRoute} />
-      <div className={classes.AppBody}>{displayPage()}</div>
-      <header className="App-header">
-        {user !== null && user !== undefined && (
-          <>
-            <p>Signed in as {user.displayName}.</p>
-            <button onClick={auth.signOut.bind(auth)}>Sign Out?</button>
-          </>
-        )}
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <button onClick={handlePopup}>POPUP</button>
-        <button onClick={handleSignIn}>SignInWithGoogle</button>
-      </header>
+      <NavBar
+        pages={pageRoutes}
+        onRouteClicked={setCurrentRoute}
+        currentRoute={currentRoute}
+      />
+      <div className={classes.AppBody}>
+        {displayPage()}
+      </div>
+      {isSignInModalOpen && <div className={classes.Modal}>
+        <button onClick={handleSignIn}>
+          Sign in
+        </button>
+        <p>to start accumulating rewards</p>
+      </div>}
     </div>
   );
 }

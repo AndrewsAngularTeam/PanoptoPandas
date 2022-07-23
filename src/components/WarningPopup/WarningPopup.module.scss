@@ -1,0 +1,75 @@
+@import "../../assets/css/theme.scss";
+
+.WarningPopup {
+  height: 180px;
+  width: 350px;
+
+  border-radius: 15px;
+
+  background-color: $c-bg;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  row-gap: 5px;
+
+  box-sizing: border-box;
+  padding: 30px;
+
+  h3 {
+    font-weight: 400;
+    line-height: 40px;
+
+    margin: 0;
+
+    img {
+      height: 30px;
+      width: 30px;
+
+      margin-bottom: -6px;
+    }
+
+    span {
+      margin-right: 10px;
+    }
+  }
+
+  p {
+    font-size: 14px;
+
+    margin: 0;
+    margin-top: -5px;
+
+    color: $c-grey-dark;
+  }
+
+  button {
+    height: 30px;
+    padding: 0 25px;
+
+    border: none;
+    border-radius: 5px;
+
+    color: $c-bg;
+    font-family: $f-poppins;
+
+    margin: 0 20px;
+
+    margin-top: 10px;
+
+    cursor: pointer;
+    transition: 0.1s ease;
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    &.Cancel {
+      background-color: $c-primary;
+    }
+  }
+}
