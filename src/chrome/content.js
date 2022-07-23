@@ -14,6 +14,15 @@ const messagesFromReactAppListener = (message, sender, response) => {
     response(volume);
     return;
   }
+
+  if (message.type === "setUserId") {
+    response(localStorage.setItem(USER_ID_KEY, message.value));
+    return;
+  }
+  if (message.type === "getUserId") {
+    response(localStorage.getItem(USER_ID_KEY));
+    return;
+  }
 };
 
 /**

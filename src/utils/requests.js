@@ -1,13 +1,37 @@
 import { axiosInstance } from "./axiosInstance";
+import { getCurrentTabUId } from '../chrome/utils'
 
 const USER_ID_KEY = "userId";
 
 const getUserId = () => {
-  return localStorage.getItem(USER_ID_KEY);
+  const message = {
+    type: "getUserId"
+  }
+
+  return new Promise((resolve, reject) => {
+    getCurrentTabUId((id) => {
+      id &&
+        chrome.tabs.sendMessage(id, message, (response) => {
+          resolve(response);
+        });
+    });
+  })
 };
 
 const setUserId = (id) => {
-  localStorage.setItem(USER_ID_KEY, id);
+  const message = {
+    type: "setUserId",
+    value: id
+  }
+
+  return new Promise((resolve, reject) => {
+    getCurrentTabUId((id) => {
+      id &&
+        chrome.tabs.sendMessage(id, message, (response) => {
+          resolve(response);
+        });
+    });
+  })
 };
 
 const getLeaderboard = async () => {
@@ -16,15 +40,17 @@ const getLeaderboard = async () => {
   return data;
 };
 
+// Marketplace to get user's coin
 const getCurrentUser = async () => {
-  const userId = getUserId();
+  const userId = await getUserId();
   const response = await axiosInstance.get(`/user/${userId}`);
   const data = response.data;
   return data;
 };
 
+// For the switch in settings
 const updateUserPrivateMode = async (privateModeOn) => {
-  const userId = getUserId();
+  const userId = await getUserId();
   const response = await axiosInstance.post(`/user/${userId}/updatePrivateMode`, {
     privateMode: privateModeOn,
   });
@@ -32,8 +58,9 @@ const updateUserPrivateMode = async (privateModeOn) => {
   return data;
 };
 
+// For when user selects an item to equip
 const updateUserSelectedItem = async (itemId) => {
-  const userId = getUserId();
+  const userId = await getUserId();
   const response = await axiosInstance.post(`/shop/selectItem`, {
     userId: userId,
     itemId: itemId,
@@ -42,8 +69,9 @@ const updateUserSelectedItem = async (itemId) => {
   return data;
 };
 
+// For Flynn to send current watch time in minutes
 const increaseUserTime = async (miniutes) => {
-  const userId = getUserId();
+  const userId = await getUserId();
   const response = await axiosInstance.post(`/user/${userId}/addTime`, {
     minutes: miniutes,
   });
@@ -51,13 +79,14 @@ const increaseUserTime = async (miniutes) => {
   return data;
 };
 
+// When you login with Firebase you need to create record of the new user on backend
 const createUser = async (name, id) => {
   const response = await axiosInstance.post(`/user/create`, {
     name: name,
     id: id,
   });
   const data = response.data;
-  setUserId(id);
+  await setUserId(id);
   return data;
 };
 
@@ -73,8 +102,9 @@ const getSpecificTypeOfItems = async (type = "model") => {
   return data;
 };
 
+// Onclick, buy item. Front end should check for sufficient balance first. Backend also checks and will return 400 if there's a error.
 const purchaseItem = async (itemId) => {
-  const userId = getUserId();
+  const userId = await getUserId();
   const response = await axiosInstance.post(`/shop/purchaseItem`, {
     userId: userId,
     itemId: itemId,
