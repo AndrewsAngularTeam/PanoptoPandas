@@ -30,36 +30,14 @@ chrome.runtime.onSuspend.addListener(() => {
   console.log("[background.js] onSuspend");
 });
 
-const populateComments = () => {
-  const ID = "primaryPlayer";
-  const element = document.getElementById(ID);
-  let commentOverlay = element.querySelector(".comment-overlay");
-  if (commentOverlay == null) {
-    commentOverlay = document.createElement("div");
-    commentOverlay.classList.add("comment-overlay");
-    commentOverlay.style.color = "white";
-    commentOverlay.style.position = "absolute";
-    commentOverlay.style.bottom = "0";
-    element.appendChild(commentOverlay)
-  }
-  console.log(commentOverlay);
-  const newElement = document.createElement("div");
-  newElement.innerText = "uwu";
-  newElement.style.transition = "transform 30s linear"
-  newElement.style.transform = "TranslateX(-100%)";
-  newElement.style.top = String(Math.random() * 100) + "%";
-  newElement.style.position = "absolute";
-  commentOverlay.appendChild(newElement);
-  setTimeout(() => {
-    newElement.style.transform = "TranslateX(100vw)";
-  }, 1_000)
-}
+
+const populateComments = () => getCurrentTabUId(uid => chrome.scripting.executeScript({
+  target: {tabId: uid},
+  files: ["static/js/scrollingComments.js"]
+}));
+
+setTimeout(() => {
+  populateComments();
+}, 10_000)
 
 console.log("vibing");
-
-setTimeout(
-  () => getCurrentTabUId(uid => chrome.scripting.executeScript({
-    target: {tabId: uid},
-    func: populateComments,
-  })), 5_000
-)

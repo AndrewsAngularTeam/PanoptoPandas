@@ -13,6 +13,7 @@ module.exports = {
           background: paths.appSrc + "/chrome/background.js",
           panoptoPage: paths.appSrc + "/chrome/panoptoPage.js",
           options: paths.appSrc + "/options/index.jsx",
+          scrollingComments: paths.appSrc + "/chrome/scrollingComments.js",
         },
         output: {
           ...webpackConfig.output,
