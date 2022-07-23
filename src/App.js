@@ -43,7 +43,11 @@ function App() {
 
   return (
     <div className="App">
-      <NavBar pages={pageRoutes} onRouteClicked={setCurrentRoute} />
+      <NavBar
+        pages={pageRoutes}
+        onRouteClicked={setCurrentRoute}
+        currentRoute={currentRoute}
+      />
       <div className={classes.AppBody}>
         {displayPage()}
       </div>

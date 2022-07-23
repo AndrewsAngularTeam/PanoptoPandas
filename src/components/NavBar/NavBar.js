@@ -20,6 +20,9 @@ const NavBar = (props) => {
                             onClick={() => {
                                 props.onRouteClicked(page.name)
                             }}
+                            className={
+                                props.currentRoute === page.name ? classes.Active : null
+                            }
                         >
                             {page.name}
                         </li>
