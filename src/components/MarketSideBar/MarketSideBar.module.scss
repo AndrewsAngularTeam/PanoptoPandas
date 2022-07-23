@@ -2,6 +2,7 @@
 
 .MarketSideBar {
   width: 120px;
+  margin-top: 100px;
 
   ul {
     list-style: none;
@@ -19,7 +20,16 @@
       display: flex;
       align-items: center;
 
-      border-left: solid 2px $c-primary;
+      cursor: pointer;
+      transition: $animation;
+
+      &:hover {
+        border-left: solid 3px rgba($c-primary, 0.3);
+      }
+    }
+
+    li.Active {
+      border-left: solid 3px $c-primary;
     }
   }
 }

@@ -10,3 +10,24 @@
 
   font-family: $f-poppins;
 }
+
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: #ececec;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+  border-radius: 10px;
+
+  background-color: #ececec;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: rgba($c-primary, 0.3);
+
+  &:hover {
+    background-color: rgba($c-primary, 1);
+  }
+}
