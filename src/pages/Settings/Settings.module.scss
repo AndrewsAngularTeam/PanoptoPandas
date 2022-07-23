@@ -3,17 +3,64 @@
 .Settings {
   display: flex;
   flex-direction: column;
-  background-color: lightblue;
 
   flex: 1;
+
+  box-sizing: border-box;
+  padding-bottom: 50px;
 
   justify-content: space-around;
 
   > div {
     border-bottom: solid 1px $c-grey-light;
+
+    padding: 25px 50px;
+
+    flex: 1;
+
+    display: flex;
   }
 
   .ProfileContainer {
+    img {
+      height: 100px;
+      width: 100px;
+
+      border-radius: 100%;
+
+      border: solid 1px $c-grey-light;
+    }
+
+    .ProfileInfo {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+
+      margin-left: 30px;
+
+      h1 {
+        font-size: 24px;
+        font-weight: 500;
+
+        margin: 0;
+        margin-top: 25px;
+      }
+
+      p {
+        font-size: 16px;
+        color: $c-grey-dark;
+
+        font-weight: 400;
+
+        margin: 0;
+      }
+    }
+  }
+
+  .EmailContainer {
+  }
+
+  .GameAttributesContainer {
   }
 
   button {
@@ -30,6 +77,8 @@
 
     cursor: pointer;
     transition: $animation;
+
+    margin-top: 30px;
 
     &:hover {
       transform: scale(1.05);

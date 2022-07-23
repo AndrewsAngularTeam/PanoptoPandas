@@ -50,9 +50,7 @@
     }
 
     .ProductsContainer {
-      flex: 1;
-
-      overflow-y: scroll !important;
+      height: 420px;
 
       display: grid;
       grid-template-columns: repeat(3, 1fr);
