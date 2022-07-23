@@ -1,4 +1,4 @@
-import * as THREE from 'three';
+import * as THREE from "three";
 import { VRMSchema } from "@pixiv/three-vrm";
 
 const BoneNames = VRMSchema.HumanoidBoneName;
@@ -91,8 +91,7 @@ export default class IKHandler {
     const { humanoid } = model;
     if (!humanoid) throw new Error("VRM does not contains humanoid");
     this.bones = boneNameOrder.map(humanoid.getBoneNode, humanoid);
-    this.root =
-      this.bones[boneMap.get(BoneNames.Hips)]?.parent ?? this.model.scene;
+    this.root = this.bones[boneMap.get(BoneNames.Hips)]?.parent ?? this.model.scene;
     const leftFootId = boneMap.get(BoneNames.LeftFoot);
     this.iks.set(leftFootId, {
       effector: leftFootId,
@@ -103,9 +102,7 @@ export default class IKHandler {
         {
           enabled: true,
           index: boneMap.get(BoneNames.LeftLowerLeg),
-          rotationMin: new THREE.Vector3(-180, 0, 0).multiplyScalar(
-            THREE.MathUtils.DEG2RAD
-          ),
+          rotationMin: new THREE.Vector3(-180, 0, 0).multiplyScalar(THREE.MathUtils.DEG2RAD),
           rotationMax: new THREE.Vector3(0, 0, 0),
         },
         {
@@ -124,9 +121,7 @@ export default class IKHandler {
         {
           enabled: true,
           index: boneMap.get(BoneNames.RightLowerLeg),
-          rotationMin: new THREE.Vector3(-180, 0, 0).multiplyScalar(
-            THREE.MathUtils.DEG2RAD
-          ),
+          rotationMin: new THREE.Vector3(-180, 0, 0).multiplyScalar(THREE.MathUtils.DEG2RAD),
           rotationMax: new THREE.Vector3(0, 0, 0),
         },
         {
@@ -183,8 +178,7 @@ export default class IKHandler {
   }
 
   disableAll() {
-    for (const { links } of this.iks.values())
-      for (const link of links) link.enabled = false;
+    for (const { links } of this.iks.values()) for (const link of links) link.enabled = false;
   }
 
   update() {
@@ -211,15 +205,9 @@ export default class IKHandler {
           effectorPos.setFromMatrixPosition(effector.matrixWorld);
 
           // work in link world
-          effectorVec
-            .subVectors(effectorPos, linkPos)
-            .applyQuaternion(quaternion)
-            .normalize();
+          effectorVec.subVectors(effectorPos, linkPos).applyQuaternion(quaternion).normalize();
 
-          targetVec
-            .subVectors(targetPos, linkPos)
-            .applyQuaternion(quaternion)
-            .normalize();
+          targetVec.subVectors(targetPos, linkPos).applyQuaternion(quaternion).normalize();
 
           let angle = targetVec.dot(effectorVec);
 
@@ -238,15 +226,11 @@ export default class IKHandler {
           link.quaternion.multiply(quaternion.setFromAxisAngle(axis, angle));
 
           if (rotationMin) {
-            link.rotation.setFromVector3(
-              this.vector.setFromEuler(link.rotation).max(rotationMin)
-            );
+            link.rotation.setFromVector3(this.vector.setFromEuler(link.rotation).max(rotationMin));
           }
 
           if (rotationMax) {
-            link.rotation.setFromVector3(
-              this.vector.setFromEuler(link.rotation).min(rotationMax)
-            );
+            link.rotation.setFromVector3(this.vector.setFromEuler(link.rotation).min(rotationMax));
           }
           link.updateMatrixWorld(true);
 

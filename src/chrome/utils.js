@@ -12,7 +12,7 @@ export const getCurrentTabUId = (callback) => {
 
   chrome.tabs &&
     chrome.tabs.query(queryInfo, (tabs) => {
-      console.log(tabs)
+      console.log(tabs);
       callback(tabs[0].id);
     });
 };

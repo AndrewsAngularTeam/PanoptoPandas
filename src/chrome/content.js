@@ -5,13 +5,12 @@ const validateSender = (sender) => {
 const messagesFromReactAppListener = (message, sender, response) => {
   const isValidated = validateSender(sender);
 
-  console.log(message, sender)
+  console.log(message, sender);
 
   if (!isValidated) {
     console.error("[content.js] messagesFromReactAppListener: sender is not valid");
     return;
-  } 
-
+  }
 };
 
 const main = () => {

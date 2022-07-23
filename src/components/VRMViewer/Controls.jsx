@@ -1,9 +1,5 @@
 import { useRef } from "react";
-import {
-  useThree,
-  useFrame,
-  extend,
-} from "@react-three/fiber";
+import { useThree, useFrame, extend } from "@react-three/fiber";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
 extend({ OrbitControls });
@@ -21,9 +17,7 @@ const Controls = (props) => {
     controls.current.update();
   });
 
-  return (
-    <orbitControls {...props} ref={controls} args={[camera, domElement]} />
-  );
+  return <orbitControls {...props} ref={controls} args={[camera, domElement]} />;
 };
 
 export { Controls };

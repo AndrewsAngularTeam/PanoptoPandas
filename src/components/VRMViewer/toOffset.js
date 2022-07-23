@@ -1,4 +1,4 @@
-import * as THREE from 'three';
+import * as THREE from "three";
 import { VRMSchema } from "@pixiv/three-vrm";
 
 export default function toOffset(vrm) {

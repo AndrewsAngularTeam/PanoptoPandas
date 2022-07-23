@@ -1,6 +1,6 @@
 import { Suspense, useRef, useState } from "react";
 import { Canvas } from "@react-three/fiber";
-import "./Options.css"
+import "./Options.css";
 import ExampleAvatar from "../assets/ExampleAvatar_B.vrm";
 
 // getVmd returns a promise that resolves to a VMD object.
@@ -36,7 +36,6 @@ function Options() {
 
     const animate = mixerRef.current.clipAction(clip);
   };
-
 
   return (
     <Canvas camera={{ position: [0, 1.5, 4], fov: 30, near: 0.001, far: 100 }}>

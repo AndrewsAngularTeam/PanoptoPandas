@@ -1,10 +1,4 @@
-
-import {
-  AnimationClip,
-  QuaternionKeyframeTrack,
-  VectorKeyframeTrack,
-  NumberKeyframeTrack,
-} from "three";
+import { AnimationClip, QuaternionKeyframeTrack, VectorKeyframeTrack, NumberKeyframeTrack } from "three";
 import { IKHandler } from "./IKHandler";
 
 // bindToVRM returns a new AnimationClip with the given animation and vrm.
@@ -44,14 +38,10 @@ export const bindToVRM = (data, vrm) => {
         tracks.push(new NumberKeyframeTrack(srcName, times, values));
         break;
       case "position":
-        tracks.push(
-          new VectorKeyframeTrack(`${srcName}.position`, times, values)
-        );
+        tracks.push(new VectorKeyframeTrack(`${srcName}.position`, times, values));
         break;
       case "rotation":
-        tracks.push(
-          new QuaternionKeyframeTrack(`${srcName}.quaternion`, times, values)
-        );
+        tracks.push(new QuaternionKeyframeTrack(`${srcName}.quaternion`, times, values));
         break;
       default:
     }

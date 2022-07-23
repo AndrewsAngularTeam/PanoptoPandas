@@ -1,5 +1,5 @@
 import { VRMSchema } from "@pixiv/three-vrm";
-import * as THREE from 'three';
+import * as THREE from "three";
 const { HumanoidBoneName, BlendShapePresetName } = VRMSchema;
 
 const VMDBoneNames = {
@@ -82,19 +82,13 @@ const VRM_VMD_BONE_MAP = new Map([
   [VMDBoneNames.LeftIndexIntermediate, HumanoidBoneName.LeftIndexIntermediate],
   [VMDBoneNames.LeftIndexDistal, HumanoidBoneName.LeftIndexDistal],
   [VMDBoneNames.LeftMiddleProximal, HumanoidBoneName.LeftMiddleProximal],
-  [
-    VMDBoneNames.LeftMiddleIntermediate,
-    HumanoidBoneName.LeftMiddleIntermediate,
-  ],
+  [VMDBoneNames.LeftMiddleIntermediate, HumanoidBoneName.LeftMiddleIntermediate],
   [VMDBoneNames.LeftMiddleDistal, HumanoidBoneName.LeftMiddleDistal],
   [VMDBoneNames.LeftRingProximal, HumanoidBoneName.LeftRingProximal],
   [VMDBoneNames.LeftRingIntermediate, HumanoidBoneName.LeftRingIntermediate],
   [VMDBoneNames.LeftRingDistal, HumanoidBoneName.LeftRingDistal],
   [VMDBoneNames.LeftLittleProximal, HumanoidBoneName.LeftLittleProximal],
-  [
-    VMDBoneNames.LeftLittleIntermediate,
-    HumanoidBoneName.LeftLittleIntermediate,
-  ],
+  [VMDBoneNames.LeftLittleIntermediate, HumanoidBoneName.LeftLittleIntermediate],
   [VMDBoneNames.LeftLittleDistal, HumanoidBoneName.LeftLittleDistal],
   [VMDBoneNames.LeftUpperLeg, HumanoidBoneName.LeftUpperLeg],
   [VMDBoneNames.LeftLowerLeg, HumanoidBoneName.LeftLowerLeg],
@@ -106,31 +100,19 @@ const VRM_VMD_BONE_MAP = new Map([
   [VMDBoneNames.RightLowerArm, HumanoidBoneName.RightLowerArm],
   [VMDBoneNames.RightHand, HumanoidBoneName.RightHand],
   [VMDBoneNames.RightThumbProximal, HumanoidBoneName.RightThumbProximal],
-  [
-    VMDBoneNames.RightThumbIntermediate,
-    HumanoidBoneName.RightThumbIntermediate,
-  ],
+  [VMDBoneNames.RightThumbIntermediate, HumanoidBoneName.RightThumbIntermediate],
   [VMDBoneNames.RightThumbDistal, HumanoidBoneName.RightThumbDistal],
   [VMDBoneNames.RightIndexProximal, HumanoidBoneName.RightIndexProximal],
-  [
-    VMDBoneNames.RightIndexIntermediate,
-    HumanoidBoneName.RightIndexIntermediate,
-  ],
+  [VMDBoneNames.RightIndexIntermediate, HumanoidBoneName.RightIndexIntermediate],
   [VMDBoneNames.RightIndexDistal, HumanoidBoneName.RightIndexDistal],
   [VMDBoneNames.RightMiddleProximal, HumanoidBoneName.RightMiddleProximal],
-  [
-    VMDBoneNames.RightMiddleIntermediate,
-    HumanoidBoneName.RightMiddleIntermediate,
-  ],
+  [VMDBoneNames.RightMiddleIntermediate, HumanoidBoneName.RightMiddleIntermediate],
   [VMDBoneNames.RightMiddleDistal, HumanoidBoneName.RightMiddleDistal],
   [VMDBoneNames.RightRingProximal, HumanoidBoneName.RightRingProximal],
   [VMDBoneNames.RightRingIntermediate, HumanoidBoneName.RightRingIntermediate],
   [VMDBoneNames.RightRingDistal, HumanoidBoneName.RightRingDistal],
   [VMDBoneNames.RightLittleProximal, HumanoidBoneName.RightLittleProximal],
-  [
-    VMDBoneNames.RightLittleIntermediate,
-    HumanoidBoneName.RightLittleIntermediate,
-  ],
+  [VMDBoneNames.RightLittleIntermediate, HumanoidBoneName.RightLittleIntermediate],
   [VMDBoneNames.RightLittleDistal, HumanoidBoneName.RightLittleDistal],
   [VMDBoneNames.RightUpperLeg, HumanoidBoneName.RightUpperLeg],
   [VMDBoneNames.RightLowerLeg, HumanoidBoneName.RightLowerLeg],
@@ -164,14 +146,8 @@ const IK_OFFSET_INIT = new Map([
   [VMDBoneNames.Center, { x: 0, y: 1, z: 0, s: 11 }],
   [VMDBoneNames.LeftFootIK, { x: 1, y: 1, z: 0, s: 11, dx: false }],
   [VMDBoneNames.RightFootIK, { x: -1, y: 1, z: 0, s: 11, dx: false }],
-  [
-    VMDBoneNames.LeftToeIK,
-    { x: 0, y: -1, z: -1, s: 11, oy: 4, dx: false, dz: false },
-  ],
-  [
-    VMDBoneNames.RightToeIK,
-    { x: 0, y: -1, z: -1, s: 11, oy: 4, dx: false, dz: false },
-  ],
+  [VMDBoneNames.LeftToeIK, { x: 0, y: -1, z: -1, s: 11, oy: 4, dx: false, dz: false }],
+  [VMDBoneNames.RightToeIK, { x: 0, y: -1, z: -1, s: 11, oy: 4, dx: false, dz: false }],
 ]);
 
 const VMD_VRM_IK_MAP = new Map([
@@ -186,10 +162,7 @@ const tempQ = new THREE.Quaternion();
 
 const V3_ZERO = new THREE.Vector3();
 const Q_IDENTITY = new THREE.Quaternion();
-const Z_30_DEG_CW = new THREE.Quaternion().setFromAxisAngle(
-  tempV3.set(0, 0, 1),
-  30 * THREE.MathUtils.DEG2RAD
-);
+const Z_30_DEG_CW = new THREE.Quaternion().setFromAxisAngle(tempV3.set(0, 0, 1), 30 * THREE.MathUtils.DEG2RAD);
 const Z_30_DEG_CCW = Z_30_DEG_CW.clone().invert();
 
 const VMD_BONE_NAMES = new Set(VRM_VMD_BONE_MAP.keys());
@@ -222,7 +195,7 @@ const convertMorphs = ({ morphs }) => {
           type: "morph",
           times: [],
           values: [],
-        })
+        }),
       );
     const { times, values } = timeline;
     const time = frameNum / 30;
@@ -295,30 +268,16 @@ const fixPositions = (tls, vrmOffset = {}) => {
   const centerOffset = mergeTimelines(
     tls,
     VMDBoneNames.Center,
-    offsetToTimeline(VMDBoneNames.Center, vrmOffset.hipsOffset)
+    offsetToTimeline(VMDBoneNames.Center, vrmOffset.hipsOffset),
   );
-  const hipsTl = mergeTimelines(
-    tls,
-    VMDBoneNames.Root,
-    centerOffset,
-    VMDBoneNames.Hips
-  );
+  const hipsTl = mergeTimelines(tls, VMDBoneNames.Root, centerOffset, VMDBoneNames.Hips);
   tls.set(
     VMDBoneNames.Spine,
-    localizeTimeline(
-      hipsTl,
-      mergeTimelines(tls, VMDBoneNames.Root, centerOffset, VMDBoneNames.Hips)
-    )
+    localizeTimeline(hipsTl, mergeTimelines(tls, VMDBoneNames.Root, centerOffset, VMDBoneNames.Hips)),
   );
   tls.set(VMDBoneNames.Hips, hipsTl);
-  const leftFootOffset = offsetToTimeline(
-    VMDBoneNames.LeftFootIK,
-    vrmOffset.leftFootOffset
-  );
-  const rightFootOffset = offsetToTimeline(
-    VMDBoneNames.RightFootIK,
-    vrmOffset.rightFootOffset
-  );
+  const leftFootOffset = offsetToTimeline(VMDBoneNames.LeftFootIK, vrmOffset.leftFootOffset);
+  const rightFootOffset = offsetToTimeline(VMDBoneNames.RightFootIK, vrmOffset.rightFootOffset);
   if (tls.has(VMDBoneNames.LeftToeIK))
     tls.set(
       VMDBoneNames.LeftToeIK,
@@ -328,8 +287,8 @@ const fixPositions = (tls, vrmOffset = {}) => {
         leftFootOffset,
         VMDBoneNames.LeftFootIK,
         offsetToTimeline(VMDBoneNames.RightToeIK, vrmOffset.leftToeOffset),
-        VMDBoneNames.LeftToeIK
-      )
+        VMDBoneNames.LeftToeIK,
+      ),
     );
   if (tls.has(VMDBoneNames.RightToeIK))
     tls.set(
@@ -340,28 +299,15 @@ const fixPositions = (tls, vrmOffset = {}) => {
         rightFootOffset,
         VMDBoneNames.RightFootIK,
         offsetToTimeline(VMDBoneNames.RightToeIK, vrmOffset.rightToeOffset),
-        VMDBoneNames.RightToeIK
-      )
+        VMDBoneNames.RightToeIK,
+      ),
     );
   if (tls.has(VMDBoneNames.LeftFootIK))
-    tls.set(
-      VMDBoneNames.LeftFootIK,
-      mergeTimelines(
-        tls,
-        VMDBoneNames.Root,
-        leftFootOffset,
-        VMDBoneNames.LeftFootIK
-      )
-    );
+    tls.set(VMDBoneNames.LeftFootIK, mergeTimelines(tls, VMDBoneNames.Root, leftFootOffset, VMDBoneNames.LeftFootIK));
   if (tls.has(VMDBoneNames.RightFootIK))
     tls.set(
       VMDBoneNames.RightFootIK,
-      mergeTimelines(
-        tls,
-        VMDBoneNames.Root,
-        rightFootOffset,
-        VMDBoneNames.RightFootIK
-      )
+      mergeTimelines(tls, VMDBoneNames.Root, rightFootOffset, VMDBoneNames.RightFootIK),
     );
   tls.delete(VMDBoneNames.Center);
   tls.delete(VMDBoneNames.Root);
@@ -432,19 +378,13 @@ const offsetToTimeline = (boneName, rawPos) => {
         ? new THREE.Vector3(
             init.dx || isNaN(rawPos[0])
               ? init.x
-              : rawPos[0] * (init.sx ?? 1) * (init.s ?? 1) +
-                (init.ox ?? 0) +
-                (init.o ?? 0),
+              : rawPos[0] * (init.sx ?? 1) * (init.s ?? 1) + (init.ox ?? 0) + (init.o ?? 0),
             init.dy || isNaN(rawPos[1])
               ? init.y
-              : rawPos[1] * (init.sy ?? 1) * (init.s ?? 1) +
-                (init.oy ?? 0) +
-                (init.o ?? 0),
+              : rawPos[1] * (init.sy ?? 1) * (init.s ?? 1) + (init.oy ?? 0) + (init.o ?? 0),
             init.dz || isNaN(rawPos[2])
               ? init.z
-              : rawPos[2] * (init.sz ?? 1) * (init.s ?? 1) +
-                (init.oz ?? 0) +
-                (init.o ?? 0)
+              : rawPos[2] * (init.sz ?? 1) * (init.s ?? 1) + (init.oz ?? 0) + (init.o ?? 0),
           )
         : new THREE.Vector3(init.x, init.y, init.z),
       rotation: Q_IDENTITY,
@@ -465,12 +405,8 @@ const localizeTimeline = (...tls) => {
       results[frameNum] = {
         boneName,
         frameNum,
-        position: (fc.isNew ? fc.position : fc.position.clone()).sub(
-          fp.position
-        ),
-        rotation: (fc.isNew ? fc.rotation : fc.rotation.clone()).multiply(
-          tempQ.copy(fp.rotation).invert()
-        ),
+        position: (fc.isNew ? fc.position : fc.position.clone()).sub(fp.position),
+        rotation: (fc.isNew ? fc.rotation : fc.rotation.clone()).multiply(tempQ.copy(fp.rotation).invert()),
       };
     }
     isChild = true;
@@ -525,8 +461,7 @@ const mergeTimelines = (tlsMap, ...tlsKey) => {
       const rotation = new THREE.Quaternion();
       for (const otl of tls) {
         if (!otl.length) continue;
-        const f2 =
-          otl[0].boneName === f.boneName ? f : lerpKeyframe(otl, frameNum);
+        const f2 = otl[0].boneName === f.boneName ? f : lerpKeyframe(otl, frameNum);
         position.add(tempV3.copy(f2.position).applyQuaternion(rotation));
         rotation.multiply(f2.rotation);
       }
@@ -535,13 +470,10 @@ const mergeTimelines = (tlsMap, ...tlsKey) => {
   return results.filter((r) => !!r);
 };
 
-const resolveTimeline = (map) => (key) =>
-  Array.isArray(key) ? key : map.get(key);
+const resolveTimeline = (map) => (key) => Array.isArray(key) ? key : map.get(key);
 
 const sortFrames = (f) => {
-  return (Array.isArray(f) ? f : Array.from(f)).sort(
-    (a, b) => a.frameNum - b.frameNum
-  );
+  return (Array.isArray(f) ? f : Array.from(f)).sort((a, b) => a.frameNum - b.frameNum);
 };
 
 const getLastFrameNum = (f) => (f.length ? f[f.length - 1].frameNum : 0);
