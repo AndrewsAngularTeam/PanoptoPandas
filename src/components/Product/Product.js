@@ -17,7 +17,7 @@ const Product = (props) => {
                 classNames(classes.Product, classes.Active) :
                 classNames(classes.Product)
         }>
-            <img src={PlaceholderProduct} />
+            <img src={props?.product?.image || PlaceholderProduct} />
             <div className={classes.ProductInfo}>
                 {
                     isUnlocked ?
@@ -31,7 +31,7 @@ const Product = (props) => {
                         </div> :
                         <div className={classes.PriceContainer}>
                             <img src={Gem} />
-                            <p>600</p>
+                            <p>{props.product.cost}</p>
                         </div>
                 }
                 <img src={isUnlocked ? Unlock : Lock} />
