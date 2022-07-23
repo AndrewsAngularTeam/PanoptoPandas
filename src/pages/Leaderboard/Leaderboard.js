@@ -3,7 +3,6 @@ import classes from "./Leaderboard.module.scss";
 
 const Leaderboard = () => {
 
-
     // TODO replace with state and fetch data from server
     const data = [
         {
@@ -96,7 +95,7 @@ const Leaderboard = () => {
     ]
 
     return (
-        <div className="Leaderboard">
+        <div className={classes.Leaderboard}>
             <div className={classes.TopThreeContainer}>tpo 3</div>
             <div className={classes.ListContainer}>
                 {
@@ -105,6 +104,7 @@ const Leaderboard = () => {
                             <LeaderboardPerson
                                 key={user._id}
                                 rank={i + 1 + 3}
+                                user={user}
                             />
                         )
                     })
