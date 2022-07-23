@@ -89,8 +89,13 @@ const Marketplace = () => {
                     <p>You can earn more coins by watching lectures!</p>
                 </div>
                 <div className={classes.ProductsContainer}>
-                    {products.map((product) => {
-                        return <Product product={product} key={product.id} />
+                    {products.map((product, i) => {
+                        return <Product
+                            product={product}
+                            key={product.id}
+                            owned={i === 1}
+                            isSelected={i === 3}
+                        />
                     })}
 
                 </div>

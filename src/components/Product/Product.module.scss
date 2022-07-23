@@ -58,4 +58,62 @@
       }
     }
   }
+
+  &.Active {
+    .ProductInfo {
+      background-color: rgba($c-primary, 0.1);
+    }
+
+    cursor: auto;
+
+    &:hover {
+      border: solid 1px #f6f6f6;
+    }
+  }
+
+  .CheckboxContainer {
+    display: flex;
+    align-items: center;
+
+    button {
+      background-color: $c-bg;
+      border-radius: 100%;
+
+      border: solid 1px $c-grey-dark;
+
+      height: 16px;
+      width: 16px;
+
+      margin: 0;
+      padding: 0;
+
+      cursor: pointer;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      cursor: pointer;
+      transition: 0.1s ease;
+
+      &:hover {
+        border: solid 1px $c-primary;
+        transform: scale(1.05);
+      }
+
+      &.Selected {
+        background-color: $c-primary;
+        border: solid 1px $c-primary;
+      }
+    }
+
+    > p {
+      font-size: 10px;
+      color: $c-primary;
+      font-weight: 500;
+
+      margin: 0;
+      margin-left: 6px;
+    }
+  }
 }
