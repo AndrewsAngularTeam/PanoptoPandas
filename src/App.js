@@ -1,18 +1,21 @@
 import "./App.scss";
+import {getCurrentTabUId} from "./chrome/utils"
+import "./options/"
 
 function App() {
   const handlePopup = () => {
-    if (chrome.runtime.openOptionsPage) {
-      let w = 440;
-      let h = 220;
-      let left = screen.width / 2 - w / 2;
-      let top = screen.height / 2 - h / 2;
-
-      chrome.windows.create(
-        { url: "options.html", type: "popup", width: w, height: h, left: left, top: top },
-        function (window) {},
-      );
+    const message = {
+      type: "inject"
     }
+
+    getCurrentTabUId((id) => {
+      id && chrome.tabs.sendMessage(
+        id,
+        message,
+        (responseFromContentScript) => {
+          console.log(responseFromContentScript);
+        });
+    });
   };
 
   return (

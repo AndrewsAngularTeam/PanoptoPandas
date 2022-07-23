@@ -15,12 +15,12 @@ const useVrm = (url) => {
       VRMUtils.removeUnnecessaryVertices(gltf.scene);
 
       const vrm = await VRM.from(gltf);
-      vrm.scene.rotation.y = Math.PI;
+      vrm.scene.rotation.y = Math.PI - 0.2;
       setVrm(vrm);
     });
   }, [loader, url]);
 
-  return { vrm };
+  return { vrm, loaded: !!vrm };
 };
 
 export { useVrm };

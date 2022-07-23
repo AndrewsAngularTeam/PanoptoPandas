@@ -1,6 +1,40 @@
 import * as THREE from "three";
 import { VRMSchema } from "@pixiv/three-vrm";
 
+const PI2 = Math.PI * 2;
+
+export function clampByRadian(
+  v,
+  min = Number.NEGATIVE_INFINITY,
+  max = Number.POSITIVE_INFINITY
+) {
+  const hasMin = Number.isFinite(min);
+  const hasMax = Number.isFinite(max);
+  if (hasMin && hasMax && min === max) return min;
+  if (hasMin) min = THREE.MathUtils.euclideanModulo(min, PI2);
+  if (hasMax) max = THREE.MathUtils.euclideanModulo(max, PI2);
+  v = THREE.MathUtils.euclideanModulo(v, PI2);
+  if (hasMin && hasMax && min >= max) {
+    max += PI2;
+    if (v < Math.PI) v += PI2;
+  }
+  if (hasMax && v > max) v = max;
+  else if (hasMin && v < min) v = min;
+  return THREE.MathUtils.euclideanModulo(v, PI2);
+}
+
+export function clampVector3ByRadian(
+  v,
+  min,
+  max,
+) {
+  return v.set(
+    clampByRadian(v.x, min?.x, max?.x),
+    clampByRadian(v.y, min?.y, max?.y),
+    clampByRadian(v.z, min?.z, max?.z)
+  );
+}
+
 const BoneNames = VRMSchema.HumanoidBoneName;
 const boneNameOrder = [
   BoneNames.Chest,
@@ -224,14 +258,7 @@ export default class IKHandler {
           axis.crossVectors(effectorVec, targetVec).normalize();
 
           link.quaternion.multiply(quaternion.setFromAxisAngle(axis, angle));
-
-          if (rotationMin) {
-            link.rotation.setFromVector3(this.vector.setFromEuler(link.rotation).max(rotationMin));
-          }
-
-          if (rotationMax) {
-            link.rotation.setFromVector3(this.vector.setFromEuler(link.rotation).min(rotationMax));
-          }
+          clampVector3ByRadian(link.rotation, rotationMin, rotationMax);
           link.updateMatrixWorld(true);
 
           rotated = true;

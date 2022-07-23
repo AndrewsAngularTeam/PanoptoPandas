@@ -17,4 +17,6 @@ code {
 html {
   width: 800px;
   height: 600px;
+  background-color: transparent !important;
 }
+
