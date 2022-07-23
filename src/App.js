@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import { TimingProvider } from "./context/TimingContext";
 import TimerButtons from "./components/TimerButtons";
 import "./App.css";
@@ -22,7 +21,6 @@ function App() {
     <TimingProvider>
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
           <p>
             Edit <code>src/App.js</code> and save to reload.
           </p>
