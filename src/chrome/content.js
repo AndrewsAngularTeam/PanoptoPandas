@@ -1,12 +1,17 @@
+import { volume, initVideoObservers } from "./video";
+
 const USER_ID_KEY = "userId";
 
 const messagesFromReactAppListener = (message, sender, response) => {
-  console.log("[content.js] received Message:", message);
-
   if (message.type === "inject") {
     console.log("inject");
     injectIFrame();
     response("injected");
+    return;
+  }
+
+  if (message.type === "volume") {
+    response(volume);
     return;
   }
 };
@@ -82,6 +87,7 @@ const main = () => {
    * Fired when a message is sent from either an extension process or a content script.
    */
   chrome.runtime.onMessage.addListener(messagesFromReactAppListener);
+  initVideoObservers();
 };
 
 main();

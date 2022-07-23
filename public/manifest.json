@@ -25,6 +25,7 @@
         "https://*/*"
       ],
       "js": [
+        "./static/js/jungle.js",
         "./static/js/content.js"
       ],
       "all_frames": false,
