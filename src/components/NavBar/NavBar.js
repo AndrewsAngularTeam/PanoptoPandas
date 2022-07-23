@@ -5,7 +5,6 @@ import Logo from "../../assets/logo.svg"
 import DefaultPic from "../../assets/placeholderAvatar.png";
 
 const NavBar = (props) => {
-    console.log("props.pages", props.pages)
     return (
         <header className={classes.NavBar}>
             <div className={classes.LogoContainer}>
@@ -17,6 +16,7 @@ const NavBar = (props) => {
 
                     {props.pages.map((page) => {
                         return <li
+                            key={page.name}
                             onClick={() => {
                                 props.onRouteClicked(page.name)
                             }}
