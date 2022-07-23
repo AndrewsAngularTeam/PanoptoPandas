@@ -13,7 +13,7 @@ const NavBar = () => {
             </div>
             <nav className={classes.NavContainer}>
                 <ul>
-                    <li>Customisation</li>
+                    <li className={classes.Active}>Customisation</li>
                     <li>Leaderboard</li>
                 </ul>
             </nav>
