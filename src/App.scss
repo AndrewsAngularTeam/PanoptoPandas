@@ -6,28 +6,30 @@
 
   overflow: hidden;
 
-  background-color: #fafafa; // TODO remove
+  border: solid 1px black; // TODO remove
 
   font-family: $f-poppins;
 }
 
 ::-webkit-scrollbar-track {
   border-radius: 10px;
-  background-color: #ececec;
+  background-color: #eee;
 }
 
 ::-webkit-scrollbar {
-  width: 12px;
+  width: 9px;
   border-radius: 10px;
 
-  background-color: #ececec;
+  background-color: #eee;
 }
 
 ::-webkit-scrollbar-thumb {
   border-radius: 10px;
-  background-color: rgba($c-primary, 0.3);
+  background-color: $c-grey-light;
+
+  transition: $animation;
 
   &:hover {
-    background-color: rgba($c-primary, 1);
+    background-color: rgba($c-primary, 0.3);
   }
 }
