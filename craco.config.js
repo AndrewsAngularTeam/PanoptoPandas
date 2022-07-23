@@ -6,12 +6,12 @@ module.exports = {
         ...webpackConfig,
         entry: {
           main: [
-            env === "development" &&
-              require.resolve("react-dev-utils/webpackHotDevClient"),
+            env === "development" && require.resolve("react-dev-utils/webpackHotDevClient"),
             paths.appIndexJs,
           ].filter(Boolean),
           content: paths.appSrc + "/chrome/content.js",
           background: paths.appSrc + "/chrome/background.js",
+          panoptoPage: paths.appSrc + "/chrome/panoptoPage.js",
           options: paths.appSrc + "/options/index.jsx",
         },
         output: {
