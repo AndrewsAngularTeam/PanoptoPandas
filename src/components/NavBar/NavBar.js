@@ -5,6 +5,8 @@ import Logo from "../../assets/logo.svg";
 import DefaultPic from "../../assets/placeholderAvatar.png";
 
 const NavBar = (props) => {
+  const { user } = props;
+
   return (
     <header className={classes.NavBar}>
       <div className={classes.LogoContainer}>
@@ -34,8 +36,8 @@ const NavBar = (props) => {
       </nav>
 
       <div className={classes.ProfileContainer} onClick={() => props.onRouteClicked("Settings")}>
-        <img src={DefaultPic} />
-        <p>Name Here</p>
+        <img src={user?.profileImage || DefaultPic} />
+        <p>{user?.name}</p>
       </div>
     </header>
   );
