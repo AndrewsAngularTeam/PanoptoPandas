@@ -72,44 +72,55 @@ const handleCollect = () => {
 
   postCollection(5);
   const frame = document.getElementById(id);
-  frame.remove();
+  frame.className = "hidden";
 };
 
 const injectPopup = () => {
   const frame = document.getElementById(id);
   if (frame !== undefined && frame !== null) {
-    frame.remove();
+    console.log("[panoptoPage.js] show popup");
+    frame.className = "popup";
+  } else {
+    let popup = document.createElement("div");
+
+    popup.className = "popup";
+    popup.id = id;
+
+    let leftContainer = document.createElement("div");
+    leftContainer.className = "left-container";
+
+    let gem = document.createElement("img");
+    gem.src = "https://aat-bucket-hackathon.s3.ap-southeast-2.amazonaws.com/gem_1.svg";
+    gem.className = "gem";
+
+    let gemNumber = document.createElement("p");
+    gemNumber.innerText = "x 500";
+    gemNumber.style.fontSize = "14px";
+
+    let gemContainer = document.createElement("div");
+    gemContainer.className = "gem-container";
+    gemContainer.appendChild(gem);
+    gemContainer.appendChild(gemNumber);
+
+    leftContainer.appendChild(gemContainer);
+
+    let button = document.createElement("button");
+    button.innerText = "Collect";
+    button.className = "poppins collect-button";
+    button.addEventListener("click", handleCollect);
+
+    let text = document.createElement("p");
+    text.className = "poppins collect-message";
+    text.innerText = "That's another 5 minutes watched!";
+
+    leftContainer.appendChild(button);
+    popup.appendChild(leftContainer);
+    popup.appendChild(text);
+
+    let body = document.getElementsByTagName("body")[0];
+    body.appendChild(popup);
   }
 
-  let popup = document.createElement("div");
-
-  popup.style.borderRadius = "10px";
-  popup.style.width = "270px";
-  popup.style.height = "100px";
-  popup.style.display = "flex";
-  popup.style.flex = "col";
-  popup.style.zIndex = "100";
-  popup.style.backgroundColor = "#ffffff";
-  popup.style.position = "absolute";
-  popup.style.bottom = "30px";
-  popup.style.right = "30px";
-  popup.id = id;
-
-  let button = document.createElement("button");
-  button.innerText = "Collect";
-  button.style.width = "70px";
-  button.style.height = "20px";
-  button.style.borderRadius = "5px";
-  button.style.backgroundColor = "#9A33CA";
-  button.style.marginLeft = "27px";
-  button.style.color = "#ffffff";
-
-  button.addEventListener("click", handleCollect);
-
-  popup.appendChild(button);
-
-  let body = document.getElementsByTagName("body")[0];
-  body.appendChild(popup);
   console.log("[panoptoPage.js] Created popup");
 };
 

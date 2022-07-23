@@ -1,0 +1,64 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
+
+.poppins {
+  font-family: "Poppins", sans-serif;
+}
+
+.hidden {
+  bottom: 0px;
+  transition: all 0.5s ease-in-out;
+}
+
+.popup {
+  width: 285px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  column-gap: 20px;
+  z-index: 100;
+  background-color: #fff;
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  transition: "0.3s ease";
+}
+
+.left-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 10px;
+  margin-left: 27px;
+}
+
+.collect-button {
+  width: 70px;
+  height: 20px;
+  border-radius: 5px;
+  background-color: #9a33ca;
+  color: #ffffff;
+  font-size: 10px;
+  border: none;
+  box-shadow: none;
+}
+
+.collect-button:hover {
+  opacity: 0.8;
+}
+
+.gem-container {
+  display: flex;
+  align-items: center;
+  column-gap: 5px;
+}
+
+.gem {
+  width: 24px;
+  height: 24px;
+}
+
+.collect-message {
+  color: #aaaaaa;
+  font-size: 12px;
+}
