@@ -8,6 +8,8 @@ let lastIntervalTime = 0;
 let remainingTime = 10000;
 let isRunning = false;
 
+let isLoggedIn = false;
+
 function handlePlay() {
   isRunning = true;
   if (payTimeoutId !== 0) {
@@ -96,12 +98,22 @@ function createPopupElement() {
 
   let button = document.createElement("button");
   button.innerText = "Collect";
-  button.className = "collect-button font";
+  if (isLoggedIn) {
+    button.className = "collect-button font";
+  } else {
+    button.className = "collect-button-disabled font";
+    button.disabled = true;
+  }
+
   button.addEventListener("click", handleCollect);
 
   let text = document.createElement("p");
   text.className = "collect-message font";
-  text.innerText = "That's another 5 minutes watched!";
+  if (isLoggedIn) {
+    text.innerText = "That's another 5 minutes watched!";
+  } else {
+    text.innerHTML = "You have a new reward!<br><a style='color: #9a33ca'>Sign in</a> to collect";
+  }
 
   leftContainer.appendChild(button);
   popup.appendChild(leftContainer);
