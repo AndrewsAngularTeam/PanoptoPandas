@@ -5,39 +5,42 @@ import classes from "./Marketplace.module.scss";
 import Gem from "../../assets/gem.svg";
 import ConfirmationPopup from "../../components/ConfirmationPopup/ConfirmationPopup";
 import WarningPopup from "../../components/WarningPopup/WarningPopup";
-import { getAllItems } from "../../utils/requests";
+import { getAllItems, getCurrentUser } from "../../utils/requests";
 import { getCurrentTabUId } from "../../chrome/utils";
+import Loading from "../../components/Loading/Loading";
 
 const Marketplace = () => {
+  const [loading, setLoading] = useState(true);
+
   const [balance, setBalance] = useState(0);
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
-  const [selected, setSelected] = useState();
+  const [selected, setSelected] = useState("model");
 
   const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
   const [isWarningOpen, setIsWarningOpen] = useState(false);
 
-  const [selectedItemPrice, setSelectedItemPrice] = useState(0);
+  const [prevProduct, setPrevProduct] = useState();
+  const [selectedProduct, setSelectedProduct] = useState();
 
-  const onProductClicked = (price) => {
-    selectedItemPrice(price);
+  const onProductClicked = (product) => {
+    setSelectedProduct(product);
 
-    //if balance
-    //setIsConfirmationOpen(true)
-    //else
-    //setIsWarningOpen(true)
+    if (true) setIsConfirmationOpen(true);
+    else setIsWarningOpen(true);
   };
 
   const onConfirmPurchase = () => {
     //do things
 
+    onProductUse(selectedProduct);
+
     setIsConfirmationOpen(false);
   };
 
-  const handleClick = (product, i) => () => {
+  const onProductUse = (product) => {
     if (/*product.owned*/ true) {
-      setSelected(i);
-
+      setPrevProduct(product);
       const message = {
         type: "inject",
         vrmUrl: product.resource,
@@ -49,17 +52,12 @@ const Marketplace = () => {
             console.log("[marketplace.js]", response);
           });
       });
-    } else {
-      if (balance >= product.cost) {
-        setBalance(balance - product.cost);
-        product.owned = true;
-        setSelected(product.name);
-      }
     }
   };
 
   useEffect(() => {
-    const getData = async () => {
+    setLoading(true);
+    const getProducts = async () => {
       const data = await getAllItems();
       setProducts(data);
       setFilteredProducts(
@@ -67,8 +65,16 @@ const Marketplace = () => {
           return o["itemType"] === selected;
         }),
       );
+      setLoading(false);
     };
-    getData();
+
+    const getBalance = async () => {
+      const data = await getCurrentUser();
+      setBalance(data.coins);
+    };
+
+    getProducts();
+    getBalance();
   }, []);
 
   const filter = (itemType) => {
@@ -96,19 +102,22 @@ const Marketplace = () => {
             </div>
             <p>You can earn more coins by watching lectures!</p>
           </div>
-          <div className={classes.ProductsContainer}>
-            {filteredProducts.map((product, i) => {
-              return (
-                <Product
-                  onClick={handleClick(product, i)}
-                  product={product}
-                  key={product.id}
-                  owned={true} // TODO: backend
-                  isSelected={selected === i}
-                />
-              );
-            })}
-          </div>
+          {loading && <Loading />}
+          {!loading && (
+            <div className={classes.ProductsContainer}>
+              {filteredProducts.map((product, i) => {
+                return (
+                  <Product
+                    onClick={() => onProductClicked(product)}
+                    product={product}
+                    key={product.id}
+                    owned={true} // TODO: backend
+                    isSelected={product.id === prevProduct?.id}
+                  />
+                );
+              })}
+            </div>
+          )}
         </div>
       </div>
       {isConfirmationOpen && (
@@ -116,7 +125,7 @@ const Marketplace = () => {
           <ConfirmationPopup
             onCancel={() => setIsConfirmationOpen(false)}
             onConfirm={onConfirmPurchase}
-            price={selectedItemPrice}
+            price={selectedProduct?.cost}
           />
         </div>
       )}

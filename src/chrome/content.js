@@ -76,6 +76,7 @@ const injectIFrame = (vrmUrl) => {
   iframe.allowTransparency = true;
   iframe.style.backgroundColor = "transparent";
 
+  iframe.style.zIndex = "1000";
   iframe.style.bottom = "0";
   iframe.style.right = "0";
   iframe.style.height = "35vh";

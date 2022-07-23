@@ -11,10 +11,10 @@ const Settings = () => {
 
   const [email, setEmail] = useState("");
   const [profileData, setProfileData] = useState({
-    name: "Hiruna",
-    totalWatchTimeMin: 24,
+    name: "Loading",
+    totalWatchTimeMin: 0,
     privateMode: false,
-    balance: 7100,
+    balance: 0,
   });
 
   useEffect(() => {

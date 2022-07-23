@@ -10,6 +10,9 @@ const ConfirmationPopup = (props) => {
         <img src={Gem} /> <span>{props.price || "??"}</span>?
       </h3>
       <div>
+        <button className={classes.Confirm} onClick={props.onConfirm}>
+          Confirm
+        </button>
         <button className={classes.Cancel} onClick={props.onCancel}>
           Cancel
         </button>

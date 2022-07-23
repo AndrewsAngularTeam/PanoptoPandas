@@ -3,20 +3,27 @@ import classNames from "classnames";
 import LeaderboardPerson from "../../components/LeaderboardPerson/LeaderboardPerson";
 import classes from "./Leaderboard.module.scss";
 import Crown from "../../assets/crown.svg";
-import leaderboardData from "./leaderboard.json";
 import { getLeaderboard } from "../../utils/requests";
+import Loading from "../../components/Loading/Loading";
 
 const Leaderboard = () => {
   // TODO replace with state and fetch data from server
-  const [data, setData] = useState(leaderboardData);
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const getData = async () => {
+      setLoading(true);
       const leaderboard = await getLeaderboard();
       setData(leaderboard);
+      setLoading(false);
     };
     getData();
   }, []);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <div className={classes.Leaderboard}>
