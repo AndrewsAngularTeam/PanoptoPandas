@@ -22,6 +22,7 @@ function App() {
   };
 
   const [currentRoute, setCurrentRoute] = useState("Customisations")
+  const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
 
   const pageRoutes = [
     {
@@ -56,6 +57,12 @@ function App() {
       <div className={classes.AppBody}>
         {displayPage()}
       </div>
+      {isSignInModalOpen && <div className={classes.Modal}>
+        <button>
+          Sign in
+        </button>
+        <p>to start accumulating rewards</p>
+      </div>}
     </div>
   );
 }
