@@ -38,6 +38,6 @@ const populateComments = () => getCurrentTabUId(uid => chrome.scripting.executeS
 
 setTimeout(() => {
   populateComments();
-}, 10_000)
+}, 5_000)
 
 console.log("vibing");
