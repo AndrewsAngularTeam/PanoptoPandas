@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import MarketSideBar from '../../components/MarketSideBar/MarketSideBar';
 import Product from '../../components/Product/Product';
 import classes from "./Marketplace.module.scss"
 import Gem from "../../assets/gem.svg"
+import ConfirmationPopup from '../../components/ConfirmationPopup/ConfirmationPopup';
+import WarningPopup from '../../components/WarningPopup/WarningPopup';
 
 const Marketplace = () => {
 
@@ -73,34 +75,45 @@ const Marketplace = () => {
         }
     ];
 
+
+    const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
+    const [isWarningOpen, setIsWarningOpen] = useState(true);
+
     return (
-        <div className={classes.Marketplace}>
-            <MarketSideBar />
-            <div className={classes.ContentContainer}>
-                <div className={classes.BalanceContainer}>
-                    <div className={classes.Balance}>
-                        <p>Balance:</p>
+        <>
+            <div className={classes.Marketplace}>
+                <MarketSideBar />
+                <div className={classes.ContentContainer}>
+                    <div className={classes.BalanceContainer}>
+                        <div className={classes.Balance}>
+                            <p>Balance:</p>
 
-                        <div className={classes.Money}>
-                            <img src={Gem} />
-                            <p>7100</p>
+                            <div className={classes.Money}>
+                                <img src={Gem} />
+                                <p>7100</p>
+                            </div>
                         </div>
+                        <p>You can earn more coins by watching lectures!</p>
                     </div>
-                    <p>You can earn more coins by watching lectures!</p>
-                </div>
-                <div className={classes.ProductsContainer}>
-                    {products.map((product, i) => {
-                        return <Product
-                            product={product}
-                            key={product.id}
-                            owned={i === 1}
-                            isSelected={i === 3}
-                        />
-                    })}
+                    <div className={classes.ProductsContainer}>
+                        {products.map((product, i) => {
+                            return <Product
+                                product={product}
+                                key={product.id}
+                                owned={i === 1}
+                                isSelected={i === 3}
 
+                            />
+                        })}
+
+                    </div>
                 </div>
             </div>
-        </div>
+            <div className={classes.Modal}>
+                {/* {isConfirmationOpen && <ConfirmationPopup />} */}
+                {isWarningOpen && <WarningPopup />}
+            </div>
+        </>
     )
 }
 
