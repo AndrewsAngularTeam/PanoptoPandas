@@ -1,5 +1,5 @@
 const messagesFromReactAppListener = (message, sender, response) => {
-  console.log(message.type, message);
+  console.log("[content.js] received Message:", message);
 
   if (message.type === "inject") {
     console.log("inject");
