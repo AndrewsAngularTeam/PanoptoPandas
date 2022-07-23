@@ -2,6 +2,8 @@ import "./App.scss";
 import classes from "./App.module.scss"
 import NavBar from "./components/NavBar/NavBar";
 import Marketplace from "./pages/Marketplace/Marketplace";
+import Leaderboard from "./pages/Leaderboard/Leaderboard";
+import { useState } from "react";
 
 function App() {
   const handlePopup = () => {
@@ -18,11 +20,32 @@ function App() {
     }
   };
 
+  const [currentRoute, setCurrentRoute] = useState("Customisations")
+
+  const pageRoutes = [
+    {
+      name: "Customisations",
+      component: <Marketplace />,
+    },
+    {
+      name: "Leaderboard",
+      component: <Leaderboard />,
+    }
+  ]
+
+  const displayPage = () => {
+    for (let page of pageRoutes) {
+      if (page.name.trim() === currentRoute.trim()) {
+        return page.component
+      }
+    }
+  }
+
   return (
     <div className="App">
-      <NavBar />
+      <NavBar pages={pageRoutes} onRouteClicked={setCurrentRoute} />
       <div className={classes.AppBody}>
-        <Marketplace />
+        {displayPage()}
       </div>
     </div>
   );

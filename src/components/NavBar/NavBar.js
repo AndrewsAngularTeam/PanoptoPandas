@@ -4,7 +4,8 @@ import classes from "./NavBar.module.scss"
 import Logo from "../../assets/logo.svg"
 import DefaultPic from "../../assets/placeholderAvatar.png";
 
-const NavBar = () => {
+const NavBar = (props) => {
+    console.log("props.pages", props.pages)
     return (
         <header className={classes.NavBar}>
             <div className={classes.LogoContainer}>
@@ -13,8 +14,16 @@ const NavBar = () => {
             </div>
             <nav className={classes.NavContainer}>
                 <ul>
-                    <li className={classes.Active}>Customisation</li>
-                    <li>Leaderboard</li>
+
+                    {props.pages.map((page) => {
+                        return <li
+                            onClick={() => {
+                                props.onRouteClicked(page.name)
+                            }}
+                        >
+                            {page.name}
+                        </li>
+                    })}
                 </ul>
             </nav>
 
