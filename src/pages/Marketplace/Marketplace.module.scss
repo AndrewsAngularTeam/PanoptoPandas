@@ -17,5 +17,23 @@
 
       align-self: flex-end;
     }
+
+    .ProductsContainer {
+      flex: 1;
+
+      margin-bottom: 100px;
+
+      overflow-y: scroll;
+
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+
+      column-gap: 20px;
+      row-gap: 15px;
+
+      padding-right: 20px;
+
+      overflow: hidden;
+    }
   }
 }

@@ -1,0 +1,50 @@
+.Product {
+  height: 180px;
+
+  background-color: lightpink;
+
+  border-radius: 5px;
+
+  display: flex;
+  flex-direction: column;
+
+  overflow: hidden;
+
+  > img {
+    height: 140px;
+    object-fit: cover;
+    background-color: #f9f9f9;
+  }
+
+  .ProductInfo {
+    width: 100%;
+
+    flex: 1;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    box-sizing: border-box;
+    padding: 0 10px;
+
+    background-color: #f2f2f2;
+
+    .PriceContainer {
+      display: flex;
+      align-items: center;
+
+      > p {
+        font-size: 12px;
+        margin-left: 5px;
+        font-weight: 500;
+      }
+
+      > img {
+        height: 14px;
+        width: 14px;
+      }
+    }
+  }
+}
