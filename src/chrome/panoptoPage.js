@@ -7,13 +7,11 @@ window.setTimeout(() => {
   if (video) {
     console.log("adding event listener");
     video.addEventListener("play", (event) => {
-      console.log(event);
       chrome.runtime.sendMessage({ type: "PLAY" }, function (response) {
         console.log("RESPONSE: ", response);
       });
     });
     video.addEventListener("pause", (event) => {
-      console.log(event);
       chrome.runtime.sendMessage({ type: "PAUSE" }, function (response) {
         console.log("RESPONSE: ", response);
       });
