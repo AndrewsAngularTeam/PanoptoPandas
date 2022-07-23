@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MarketSideBar from "../../components/MarketSideBar/MarketSideBar";
 import Product from "../../components/Product/Product";
 import classes from "./Marketplace.module.scss";
