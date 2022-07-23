@@ -1,0 +1,41 @@
+name: 🚀 Build & Deploy
+
+on:
+  # Run on each push to main
+  push:
+    branches: [main]
+
+  # Run on each push to a PR
+  pull_request:
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node LTS
+        uses: actions/setup-node@v2
+        with:
+          node-version: "lts/*"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm install --force
+
+      - name: 🛠️ Build
+        run: npm run build
+
+      - name: ⚡ Format
+        run: |
+          npm run format
+          git diff --exit-code
+
+      - name: Copy index.html to 404.html
+        run: |
+          cd ./build
+          [ -f ./404.html ] || cp ./index.html ./404.html
