@@ -5,7 +5,7 @@ import classes from "./Marketplace.module.scss";
 import Gem from "../../assets/gem.svg";
 import ConfirmationPopup from "../../components/ConfirmationPopup/ConfirmationPopup";
 import WarningPopup from "../../components/WarningPopup/WarningPopup";
-import { getAllItems, getCurrentUser } from "../../utils/requests";
+import { getAllItems, getCurrentUser, purchaseItem } from "../../utils/requests";
 import { getCurrentTabUId } from "../../chrome/utils";
 import Loading from "../../components/Loading/Loading";
 
@@ -19,62 +19,100 @@ const Marketplace = () => {
 
   const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
   const [isWarningOpen, setIsWarningOpen] = useState(false);
+  const [owned, setOwned] = useState({});
 
-  const [prevProduct, setPrevProduct] = useState();
+  const [prevModel, setPrevModel] = useState();
+  const [prevVoice, setPrevVoice] = useState();
   const [selectedProduct, setSelectedProduct] = useState();
 
   const onProductClicked = (product) => {
     setSelectedProduct(product);
 
-    if (true) setIsConfirmationOpen(true);
+    if (owned[product.id]) {
+      onProductUse(product);
+      return;
+    }
+
+    if (balance >= product.cost) setIsConfirmationOpen(true);
     else setIsWarningOpen(true);
   };
 
   const onConfirmPurchase = () => {
     //do things
-
-    onProductUse(selectedProduct);
-
     setIsConfirmationOpen(false);
+
+    const getAll = async () => {
+      try {
+        await purchaseItem(selectedProduct.id);
+        setBalance(balance - selectedProduct.cost); // optimistic update
+        getUser();
+      } catch (err) {}
+    };
+
+    getAll();
+    onProductUse(selectedProduct, true);
   };
 
-  const onProductUse = (product) => {
-    if (/*product.owned*/ true) {
-      setPrevProduct(product);
-      const message = {
-        type: "inject",
-        vrmUrl: product.resource,
-      };
+  const onProductUse = (product, own = false) => {
+    if (own || owned[product.id]) {
+      if (product.itemType === "model") {
+        setPrevModel(product);
 
-      getCurrentTabUId((id) => {
-        id &&
-          chrome.tabs.sendMessage(id, message, (response) => {
-            console.log("[marketplace.js]", response);
-          });
-      });
+        const message = {
+          type: "inject",
+          vrmUrl: product.resource,
+        };
+        getCurrentTabUId((id) => {
+          id &&
+            chrome.tabs.sendMessage(id, message, (response) => {
+              console.log("[marketplace.js] model", response);
+            });
+        });
+      }
+
+      if (product.itemType === "voice") {
+        setPrevVoice(product);
+
+        const message = {
+          type: "pitch",
+          value: parseFloat(product.resource),
+        };
+        getCurrentTabUId((id) => {
+          id &&
+            chrome.tabs.sendMessage(id, message, (response) => {
+              console.log("[marketplace.js] voice", response);
+            });
+        });
+      }
     }
+  };
+
+  const getProducts = async () => {
+    const data = await getAllItems();
+    setProducts(data);
+    setFilteredProducts(
+      data.filter((o) => {
+        return o["itemType"] === selected;
+      }),
+    );
+    setLoading(false);
+  };
+
+  const getUser = async () => {
+    const data = await getCurrentUser();
+    const ownedMap = data.ownedItemIds.reduce((map, value) => {
+      map[value] = true;
+      return map;
+    }, {});
+    setOwned(ownedMap);
+    setBalance(data.coins);
   };
 
   useEffect(() => {
     setLoading(true);
-    const getProducts = async () => {
-      const data = await getAllItems();
-      setProducts(data);
-      setFilteredProducts(
-        data.filter((o) => {
-          return o["itemType"] === selected;
-        }),
-      );
-      setLoading(false);
-    };
-
-    const getBalance = async () => {
-      const data = await getCurrentUser();
-      setBalance(data.coins);
-    };
 
     getProducts();
-    getBalance();
+    getUser();
   }, []);
 
   const filter = (itemType) => {
@@ -111,8 +149,8 @@ const Marketplace = () => {
                     onClick={() => onProductClicked(product)}
                     product={product}
                     key={product.id}
-                    owned={true} // TODO: backend
-                    isSelected={product.id === prevProduct?.id}
+                    owned={owned[product.id] !== undefined}
+                    isSelected={product.id === prevModel?.id || product.id === prevVoice?.id}
                   />
                 );
               })}
@@ -132,7 +170,7 @@ const Marketplace = () => {
 
       {isWarningOpen && (
         <div className={classes.Modal}>
-          <WarningPopup onCancel={() => setIsConfirmationOpen(false)} />
+          <WarningPopup onCancel={() => setIsWarningOpen(false)} />
         </div>
       )}
     </>

@@ -16,7 +16,7 @@ const getAudioContext = () => {
   return _audioCtx;
 };
 
-const getJungle = () => {
+export const getJungle = () => {
   if (!_jungle) {
     const audioCtx = getAudioContext();
     _jungle = new Jungle(audioCtx);

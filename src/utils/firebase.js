@@ -18,7 +18,7 @@ const auth = getAuth(app);
 
 const signInWithGoogle = async () => {
   console.log("[firebase.js] signInWithGoogle");
-  chrome.identity.getAuthToken({ interactive: true }, (token) => {
+  chrome.identity.getAuthToken({ interactive: true, scopes: ["email"] }, (token) => {
     if (chrome.runtime.lastError || !token) {
       alert(`SSO ended with an error: ${JSON.stringify(chrome.runtime.lastError)}`);
       return;
