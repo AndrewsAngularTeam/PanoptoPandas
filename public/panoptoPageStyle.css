@@ -70,3 +70,15 @@
   color: #aaaaaa;
   font-size: 12px;
 }
+
+#chat-message-input-box {
+  display: table;
+}
+
+#chat-message-input-field {
+  width: 100%;
+}
+
+#chat-message-input-field-container {
+  display: table-cell;
+}
