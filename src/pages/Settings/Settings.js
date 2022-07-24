@@ -33,15 +33,15 @@ const Settings = () => {
   }, []);
 
   const onLogout = () => {
-    setLoading(true)
+    setLoading(true);
     chrome.identity.launchWebAuthFlow({ url: "https://accounts.google.com/logout" }, function (tokenUrl) {
       const message = {
         type: "logout",
-      }
+      };
       getCurrentTabUId((id) => {
         id &&
           chrome.tabs.sendMessage(id, message, (response) => {
-            console.log(reponse)
+            console.log(reponse);
           });
       });
       console.log("[app.js] loggedout", tokenUrl);
@@ -50,7 +50,7 @@ const Settings = () => {
   };
 
   if (loading) {
-    return <Loading/>
+    return <Loading />;
   }
 
   return (

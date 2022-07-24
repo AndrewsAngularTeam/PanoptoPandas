@@ -41,15 +41,31 @@ function App() {
     console.log("[app.js] useEffect");
     auth.onAuthStateChanged((user) => {
       if (user && user.uid) {
-        getUser(user.uid).catch((err) => {
-          console.log("[app.js] user", user);
-          const create = async () => {
-            const newUser = await createUser(user?.displayName ?? "Unnamed User", user.uid);
-            setUser(newUser);
+        getUser(user.uid)
+          .catch((err) => {
+            console.log("[app.js] user", user);
+            const create = async () => {
+              const newUser = await createUser(user?.displayName ?? "Unnamed User", user.uid);
+              setUser(newUser);
 
+              const message = {
+                type: "setUserId",
+                value: newUser.id,
+              };
+              getCurrentTabUId((id) => {
+                id &&
+                  chrome.tabs.sendMessage(id, message, (response) => {
+                    console.log("[app.js] user", response);
+                    setLoading(false);
+                  });
+              });
+            };
+            create();
+          })
+          .then(() => {
             const message = {
               type: "setUserId",
-              value: newUser.id,
+              value: user.uid,
             };
             getCurrentTabUId((id) => {
               id &&
@@ -58,21 +74,7 @@ function App() {
                   setLoading(false);
                 });
             });
-          };
-          create();
-        }).then(() => {
-          const message = {
-            type: "setUserId",
-            value: user.uid,
-          };
-          getCurrentTabUId((id) => {
-            id &&
-              chrome.tabs.sendMessage(id, message, (response) => {
-                console.log("[app.js] user", response);
-                setLoading(false);
-              });
           });
-        })
       }
       setIsSignInModalOpen(false);
     });
