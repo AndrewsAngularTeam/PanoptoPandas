@@ -16,7 +16,7 @@ function checkIfLoggedIn() {
 }
 
 // the payout time period in seconds
-const PAYOUT_TIME_PERIOD_MS = 5000;
+const PAYOUT_TIME_PERIOD_MS = 10000;
 const PAYOUT_TIME_PERIOD_MIN = PAYOUT_TIME_PERIOD_MS / 60000;
 
 let payTimeoutId = -1;
@@ -163,7 +163,7 @@ const updatePopup = () => {
   let text = document.getElementById(`${id}-text`);
   if (isLoggedIn) {
     button.className = "collect-button font";
-    button.disabled = true;
+    button.disabled = false;
     text.innerText = "That's another 5 minutes watched!";
   } else {
     button.className = "collect-button-disabled font";

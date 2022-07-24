@@ -188,3 +188,42 @@
 
   margin-top: -3px;
 }
+#content {
+  background: transparent !important;
+}
+
+#navBar {
+  background: transparent !important;
+}
+
+#header {
+  background: transparent !important;
+}
+
+#contentRegion {
+  background: transparent !important;
+}
+
+.top-level-items {
+  background: transparent !important;
+}
+
+.pane-content {
+  background: transparent !important;
+}
+
+#viewer {
+  background: transparent !important;
+}
+
+#viewerHeader {
+  background: transparent !important;
+}
+
+#searchInput {
+  background: transparent !important;
+}
+
+textarea {
+  background: transparent !important;
+}

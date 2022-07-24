@@ -24,10 +24,21 @@ const messagesFromReactAppListener = (message, sender, response) => {
     return;
   }
 
+  if (message.type === "logout") {
+    response(localStorage.removeItem(USER_ID_KEY));
+    return;
+  }
+
   if (message.type === "pitch") {
     console.log("[content.js] pitch, value:", message.value);
     getJungle().setPitchOffset(message.value, false);
     response("pitch");
+    return;
+  }
+
+  if (message.type === "background") {
+    document.body.style.backgroundImage = `url('https://r4.wallpaperflare.com/wallpaper/432/372/864/art-and-creative-wallpaper-88d63c6aff7c97b9ded009b242697b50.jpg')`;
+    response("background");
     return;
   }
 };
@@ -108,10 +119,6 @@ const injectIFrame = (vrmUrl) => {
 
 const main = () => {
   console.log("[content.js] Main");
-
-  if (window.localStorage.getItem(USER_ID_KEY) === null) {
-    findAndSetUserId();
-  }
   /**
    * Fired when a message is sent from either an extension process or a content script.
    */

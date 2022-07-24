@@ -68,6 +68,7 @@ const Marketplace = () => {
               console.log("[marketplace.js] model", response);
             });
         });
+        return;
       }
 
       if (product.itemType === "voice") {
@@ -83,6 +84,23 @@ const Marketplace = () => {
               console.log("[marketplace.js] voice", response);
             });
         });
+        return;
+      }
+
+      if (product.itemType === "theme") {
+        setPrevVoice(product);
+
+        const message = {
+          type: "background",
+          value: parseFloat(product.resource),
+        };
+        getCurrentTabUId((id) => {
+          id &&
+            chrome.tabs.sendMessage(id, message, (response) => {
+              console.log("[marketplace.js] background", response);
+            });
+        });
+        return;
       }
     }
   };
