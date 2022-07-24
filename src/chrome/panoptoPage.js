@@ -163,7 +163,7 @@ const updatePopup = () => {
   let text = document.getElementById(`${id}-text`);
   if (isLoggedIn) {
     button.className = "collect-button font";
-    button.disabled = true;
+    button.disabled = false;
     text.innerText = "That's another 5 minutes watched!";
   } else {
     button.className = "collect-button-disabled font";
