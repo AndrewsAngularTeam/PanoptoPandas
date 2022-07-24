@@ -189,9 +189,29 @@ function createChatInputElement() {
     old.remove();
   }
 
+  const costDiv = document.createElement("div");
+  costDiv.id = "cost-div"
+
+  const costExplanation = document.createElement("p");
+  costExplanation.innerText = "Send a message for";
+
+  costDiv.appendChild(costExplanation);
+
+  const gem = document.createElement("img");
+  gem.src = "https://aat-bucket-hackathon.s3.ap-southeast-2.amazonaws.com/gem_1.svg";
+  gem.id = "chat-message-input-box-gem";
+
+  costDiv.appendChild(gem);
+
+  const costP = document.createElement("p");
+  costP.innerText = "x 5";
+
+  costDiv.appendChild(costP);
+
   const inputField = document.createElement("input");
   inputField.id = "chat-message-input-field";
   inputField.type = "text";
+  inputField.placeholder = "Type a message...";
 
   const inputBtn = document.createElement("input");
   inputBtn.id = "chat-message-input-button";
@@ -203,6 +223,11 @@ function createChatInputElement() {
   div2.id = "chat-message-input-field-container";
   div2.appendChild(inputField);
 
+  const inputDiv = document.createElement("div");
+  inputDiv.id = "chat-message-input";
+  inputDiv.appendChild(div2);
+  inputDiv.appendChild(inputBtn);
+
   const div = document.createElement("div");
   div.id = id;
   div.style.position = "absolute";
@@ -210,8 +235,8 @@ function createChatInputElement() {
   div.style.left = 0;
   div.style.width = "400px";
 
-  div.appendChild(div2);
-  div.appendChild(inputBtn);
+  div.appendChild(costDiv);
+  div.appendChild(inputDiv);
 
   const video = document.body.getElementsByClassName("player-layout-controls-container");
   if (video.length === 0) {
