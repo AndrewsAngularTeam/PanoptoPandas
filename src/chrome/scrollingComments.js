@@ -1,13 +1,16 @@
+let videoElement = null;
+
 setTimeout(
   () =>
     fetch("https://aat-backend.herokuapp.com/chat")
       .then((r) => r.json())
       .then((comments) => {
-        console.log(comments);
+        console.log(`[scrollingComment.js] API response`, comments);
         setInterval(() => {
-          const videoElement = document.getElementById("primaryVideo");
-          if (!videoElement.paused && comments[String(Math.floor(videoElement.currentTime))]) {
-            comments[String(Math.floor(videoElement.currentTime))].map(populateComment);
+          if (videoElement !== null) {
+            if (comments[String(Math.floor(videoElement.currentTime))]) {
+              comments[String(Math.floor(videoElement.currentTime))].map(populateComment);
+            }
           }
         }, 1_000);
       }),
@@ -15,7 +18,6 @@ setTimeout(
 );
 
 const populateComment = (message) => {
-  console.log(2.5);
   const ID = "primaryPlayer";
   const element = document.getElementById(ID);
   let commentOverlay = element.querySelector(".comment-overlay");
@@ -27,7 +29,7 @@ const populateComment = (message) => {
     commentOverlay.style.height = "100%";
     element.appendChild(commentOverlay);
   }
-  console.log("Comment Overlay", commentOverlay);
+  console.log("[scrollingComment.js] Comment Overlay", commentOverlay);
   const newElement = document.createElement("div");
   newElement.innerText = message;
   newElement.style.transition = "transform 30s linear";
@@ -51,3 +53,29 @@ const populateComment = (message) => {
 };
 
 ["uwu", "hello", "world"].map(populateComment);
+
+// From panoptoPage.js
+const videoElementId = "primaryVideo";
+
+function addEventListeners(attempt = 0) {
+  if (attempt < 3) {
+    console.log(`[panoptoPage.js] attempt ${attempt + 1}`);
+    const videos = document.getElementById(videoElementId);
+    console.log("[panoptoPage.js] video elements found:", videos);
+
+    if (videos != null) {
+      // Found it
+      videoElement = videos;
+    } else {
+      setTimeout(() => {
+        addEventListeners(attempt + 1);
+      }, 3000);
+    }
+  } else {
+    console.log("[panoptoPage.js] Unable to find video element in 3 attempts");
+  }
+}
+
+window.setTimeout(() => {
+  addEventListeners();
+}, 4000);

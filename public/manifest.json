@@ -43,10 +43,6 @@
   "host_permissions": [
     "*://*/*"
   ],
-  "optional_permissions": [
-    "http://*/*",
-    "https://*/*"
-  ],
   "web_accessible_resources": [
     {
       "resources": ["options.html"],
