@@ -11,12 +11,15 @@ const Product = (props) => {
   const isUnlocked = props.owned || props.isSelected;
 
   return (
-    <div className={isUnlocked ? classNames(classes.Product, classes.Active) : classNames(classes.Product)}>
+    <div
+      onClick={props.onClick}
+      className={isUnlocked ? classNames(classes.Product, classes.Active) : classNames(classes.Product)}
+    >
       <img src={props?.product?.image || PlaceholderProduct} />
       <div className={classes.ProductInfo}>
         {isUnlocked ? (
           <div className={classes.CheckboxContainer}>
-            <button onClick={props.onClick} className={props.isSelected ? classes.Selected : null}>
+            <button className={props.isSelected ? classes.Selected : null}>
               <img src={Check} />
             </button>
             {props.isSelected ? <p>Applied</p> : <p>Use</p>}

@@ -127,7 +127,7 @@ function createPopupElement() {
   gem.className = "gem";
 
   let gemNumber = document.createElement("p");
-  gemNumber.innerText = "x 500";
+  gemNumber.innerText = "x 50";
   gemNumber.style.fontSize = "14px";
 
   let gemContainer = document.createElement("div");
@@ -243,7 +243,9 @@ const postCollection = (timeInMinutes) => {
     redirect: "follow",
   };
 
-  fetch(`https://aat-backend.herokuapp.com/user/${userID}/addTime`, requestOptions)
+  const userId = localStorage.getItem("userId");
+
+  fetch(`https://aat-backend.herokuapp.com/user/${userId}/addTime`, requestOptions)
     .then((response) => response.text())
     .then((result) => console.log(result))
     .catch((error) => console.log("[panoptoPage.js] post error ", error));

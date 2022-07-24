@@ -1,4 +1,4 @@
-import { volume, initVideoObservers } from "./video";
+import { volume, initVideoObservers, getJungle } from "./video";
 
 const USER_ID_KEY = "userId";
 
@@ -21,6 +21,13 @@ const messagesFromReactAppListener = (message, sender, response) => {
   }
   if (message.type === "getUserId") {
     response(localStorage.getItem(USER_ID_KEY));
+    return;
+  }
+
+  if (message.type === "pitch") {
+    console.log("[content.js] pitch, value:", message.value);
+    getJungle().setPitchOffset(message.value, false);
+    response("pitch");
     return;
   }
 };
