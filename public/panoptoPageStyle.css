@@ -16,7 +16,7 @@
   right: 30px;
   overflow: hidden;
   transform: translate(400px);
-  transition: 0.5s;
+  transition: 0.8s;
 }
 
 .left-container {
@@ -74,11 +74,7 @@
 #chat-message-input-box {
   position: absolute;
 
-  bottom: 0;
-  left: 0;
-
-  width: 600px;
-  height: 50px;
+  height: 40px;
 
   background-color: white;
 
@@ -92,6 +88,14 @@
   transition: 0.2s ease;
 
   column-gap: 15px;
+
+  padding: 0 20px;
+
+  bottom: 0;
+  right: 0 !important;
+
+  margin-left: 180px;
+  margin-bottom: 5px;
 }
 
 #chat-message-input-box:hover {
@@ -108,13 +112,15 @@
   border-radius: 5px;
   border: solid 1px #ddd;
 
-  margin-right: 20px;
+  margin-right: 10px;
 
   box-sizing: border-box;
 
   font-size: 10px;
 
-  padding: 3px 10px;
+  padding: 0 7px;
+
+  height: 20px;
 }
 
 #chat-message-input-field:focus {
@@ -137,11 +143,16 @@
   font-family: sans-serif;
   font-size: 10px;
 
-  padding: 3px 15px;
-  margin-left: 10px;
+  padding: 0 15px;
+  margin-left: 5px;
+
+  height: 20px;
 
   transition: 0.1s ease;
   cursor: pointer;
+
+  margin-left: 0;
+  margin-top: 3px;
 }
 
 #chat-message-input-button:hover {
@@ -173,5 +184,7 @@
 #chat-message-input {
   display: flex;
   align-items: center;
-  column-gap: 10px;
+  column-gap: 25px;
+
+  margin-top: -3px;
 }

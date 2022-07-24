@@ -204,7 +204,7 @@ function createChatInputElement() {
   costDiv.appendChild(gem);
 
   const costP = document.createElement("p");
-  costP.innerText = "x 100";
+  costP.innerText = "x 5";
 
   costDiv.appendChild(costP);
 
