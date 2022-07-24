@@ -1,3 +1,7 @@
+import { getCurrentTabUId } from "./utils";
+
+export {};
+
 /** Fired when the extension is first installed,
  *  when the extension is updated to a new version,
  *  and when Chrome is updated to a new version. */
@@ -25,3 +29,15 @@ chrome.runtime.onStartup.addListener(() => {
 chrome.runtime.onSuspend.addListener(() => {
   console.log("[background.js] onSuspend");
 });
+
+
+const populateComments = () => getCurrentTabUId(uid => chrome.scripting.executeScript({
+  target: {tabId: uid},
+  files: ["static/js/scrollingComments.js"]
+}));
+
+setTimeout(() => {
+  populateComments();
+}, 5_000)
+
+console.log("vibing");
