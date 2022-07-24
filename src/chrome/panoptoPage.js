@@ -43,7 +43,7 @@ window.setTimeout(() => {
 
 function addEventListeners(attempt = 0) {
   if (attempt < 3) {
-    const video = document.getElementById("secondaryVideo");
+    const video = document.getElementById("primaryVideo");
     if (video) {
       video.addEventListener("play", (event) => {
         handlePlay();
