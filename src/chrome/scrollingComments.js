@@ -30,7 +30,7 @@ const populateComment = (message) => {
   const newElement = document.createElement("div");
   newElement.innerText = message;
   newElement.style.transition = "transform 30s linear"
-  newElement.style.transform = "TranslateX(100vh)";
+  newElement.style.transform = "TranslateX(100vw)";
   newElement.style.top = String(Math.random() * 50) + "%";
   newElement.style.position = "absolute";
   newElement.style["-webkit-text-stroke-color"] = "black";
