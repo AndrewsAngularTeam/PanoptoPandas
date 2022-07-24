@@ -16,7 +16,7 @@ function checkIfLoggedIn() {
 }
 
 // the payout time period in seconds
-const PAYOUT_TIME_PERIOD_MS = 5000;
+const PAYOUT_TIME_PERIOD_MS = 10000;
 const PAYOUT_TIME_PERIOD_MIN = PAYOUT_TIME_PERIOD_MS / 60000;
 
 let payTimeoutId = -1;
