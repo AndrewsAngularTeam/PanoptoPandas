@@ -190,9 +190,18 @@ function createChatInputElement() {
   }
 
   const costDiv = document.createElement("div");
+  costDiv.id = "cost-div"
+
   const gem = document.createElement("img");
   gem.src = "https://aat-bucket-hackathon.s3.ap-southeast-2.amazonaws.com/gem_1.svg";
   gem.id = "chat-message-input-box-gem";
+
+  costDiv.appendChild(gem);
+
+  const costP = document.createElement("p");
+  costP.innerText = "x 100";
+
+  costDiv.appendChild(costP);
 
   const inputField = document.createElement("input");
   inputField.id = "chat-message-input-field";

@@ -150,3 +150,16 @@
   height: 16px;
   width: 16px;
 }
+
+#cost-div {
+  display: flex;
+  align-items: center;
+  column-gap: 5px;
+}
+
+#cost-div p {
+  font-size: 10px;
+  color: #222;
+
+  font-family: sans-serif;
+}
