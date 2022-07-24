@@ -30,6 +30,12 @@ const messagesFromReactAppListener = (message, sender, response) => {
     response("pitch");
     return;
   }
+
+  if (message.type === "background") {
+    document.body.style.backgroundImage = `url('https://r4.wallpaperflare.com/wallpaper/432/372/864/art-and-creative-wallpaper-88d63c6aff7c97b9ded009b242697b50.jpg')`;
+    response("background");
+    return;
+  }
 };
 
 /**

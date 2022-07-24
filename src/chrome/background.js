@@ -30,14 +30,16 @@ chrome.runtime.onSuspend.addListener(() => {
   console.log("[background.js] onSuspend");
 });
 
-
-const populateComments = () => getCurrentTabUId(uid => chrome.scripting.executeScript({
-  target: {tabId: uid},
-  files: ["static/js/scrollingComments.js"]
-}));
+const populateComments = () =>
+  getCurrentTabUId((uid) =>
+    chrome.scripting.executeScript({
+      target: { tabId: uid },
+      files: ["static/js/scrollingComments.js"],
+    }),
+  );
 
 setTimeout(() => {
   populateComments();
-}, 5_000)
+}, 5_000);
 
 console.log("vibing");
