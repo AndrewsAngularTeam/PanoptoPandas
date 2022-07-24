@@ -7,7 +7,7 @@ import Settings from "./pages/Settings/Settings";
 import { useEffect, useState } from "react";
 import { getCurrentTabUId } from "./chrome/utils";
 import { signInWithGoogle, auth } from "./utils/firebase";
-import { createUser, getCurrentUser } from "./utils/requests";
+import { createUser, getCurrentUser, getUser } from "./utils/requests";
 import Loading from "./components/Loading/Loading";
 
 function App() {
@@ -33,7 +33,7 @@ function App() {
             return;
           }
 
-          setLoading(false);
+          setLoading(true);
           setIsSignInModalOpen(true);
         });
     });
@@ -41,15 +41,31 @@ function App() {
     console.log("[app.js] useEffect");
     auth.onAuthStateChanged((user) => {
       if (user && user.uid) {
-        getCurrentUser().catch((err) => {
-          console.log("[app.js] user", user);
-          const create = async () => {
-            const newUser = await createUser(user?.displayName ?? "Unnamed User", user.uid);
-            setUser(newUser);
+        getUser(user.uid)
+          .catch((err) => {
+            console.log("[app.js] user", user);
+            const create = async () => {
+              const newUser = await createUser(user?.displayName ?? "Unnamed User", user.uid);
+              setUser(newUser);
 
+              const message = {
+                type: "setUserId",
+                value: newUser.id,
+              };
+              getCurrentTabUId((id) => {
+                id &&
+                  chrome.tabs.sendMessage(id, message, (response) => {
+                    console.log("[app.js] user", response);
+                    setLoading(false);
+                  });
+              });
+            };
+            create();
+          })
+          .then(() => {
             const message = {
               type: "setUserId",
-              value: newUser.id,
+              value: user.uid,
             };
             getCurrentTabUId((id) => {
               id &&
@@ -58,9 +74,7 @@ function App() {
                   setLoading(false);
                 });
             });
-          };
-          create();
-        });
+          });
       }
       setIsSignInModalOpen(false);
     });
