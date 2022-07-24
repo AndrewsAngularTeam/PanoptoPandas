@@ -26,11 +26,9 @@ let isRunning = false;
 
 function handlePlay() {
   lastIntervalTime = Date.now();
-  if (!isLoggedIn) {
-    checkIfLoggedIn();
-    console.log("[panoptoPage] user is logged in: ", isLoggedIn);
-    updatePopup();
-  }
+  checkIfLoggedIn();
+  console.log("[panoptoPage] user is logged in: ", isLoggedIn);
+  updatePopup();
   isRunning = true;
   if (payTimeoutId !== 0) {
     payTimeoutId = setTimeout(triggerPandaPayout, PAYOUT_TIME_PERIOD_MS);
@@ -165,6 +163,7 @@ const updatePopup = () => {
   let text = document.getElementById(`${id}-text`);
   if (isLoggedIn) {
     button.className = "collect-button font";
+    button.disabled = true;
     text.innerText = "That's another 5 minutes watched!";
   } else {
     button.className = "collect-button-disabled font";
