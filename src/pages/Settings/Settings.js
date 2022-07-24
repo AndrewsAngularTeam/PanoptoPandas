@@ -3,11 +3,12 @@ import classes from "./Settings.module.scss";
 import PlaceholderAvatar from "../../assets/placeholderAvatar.png";
 import Gem from "../../assets/gem.svg";
 import classNames from "classnames";
-import { auth } from "../../utils/firebase";
 import { getCurrentUser } from "../../utils/requests";
+import Loading from "../../components/Loading/Loading";
+import { getCurrentTabUId } from "../../chrome/utils";
 
 const Settings = () => {
-  const [user, setUser] = useState(undefined);
+  const [loading, setLoading] = useState(true);
 
   const [email, setEmail] = useState("");
   const [profileData, setProfileData] = useState({
@@ -18,15 +19,7 @@ const Settings = () => {
   });
 
   useEffect(() => {
-    console.log("[app.js] useEffect");
-    auth.onAuthStateChanged((user) => {
-      console.log("[app.js]", user);
-      setUser(user && user.uid ? user : null);
-      setEmail(user && user.email);
-    });
-  }, []);
-
-  useEffect(() => {
+    setLoading(true);
     const getData = async () => {
       const data = await getCurrentUser();
       console.log("current user", data);
@@ -36,7 +29,29 @@ const Settings = () => {
       });
     };
     getData();
+    setLoading(false);
   }, []);
+
+  const onLogout = () => {
+    setLoading(true)
+    chrome.identity.launchWebAuthFlow({ url: "https://accounts.google.com/logout" }, function (tokenUrl) {
+      const message = {
+        type: "logout",
+      }
+      getCurrentTabUId((id) => {
+        id &&
+          chrome.tabs.sendMessage(id, message, (response) => {
+            console.log(reponse)
+          });
+      });
+      console.log("[app.js] loggedout", tokenUrl);
+      window.close();
+    });
+  };
+
+  if (loading) {
+    return <Loading/>
+  }
 
   return (
     <div className={classes.Settings}>
@@ -70,7 +85,7 @@ const Settings = () => {
           <p>Turning on private mode means that your hours won’t be published on the leaderboard</p>
         </div>
       </div>
-      <button>Log out</button>
+      <button onClick={onLogout}>Log out</button>
     </div>
   );
 };

@@ -48,6 +48,13 @@ const getCurrentUser = async () => {
   return data;
 };
 
+// Marketplace to get user's coin
+const getUser = async (userId) => {
+  const response = await axiosInstance.get(`/user/${userId}`);
+  const data = response.data;
+  return data;
+};
+
 // For the switch in settings
 const updateUserPrivateMode = async (privateModeOn) => {
   const userId = await getUserId();
@@ -115,6 +122,7 @@ const purchaseItem = async (itemId) => {
 
 export {
   getLeaderboard,
+  getUser,
   getCurrentUser,
   updateUserPrivateMode,
   updateUserSelectedItem,
