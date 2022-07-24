@@ -90,6 +90,8 @@
 
   opacity: 0.5;
   transition: 0.2s ease;
+
+  column-gap: 15px;
 }
 
 #chat-message-input-box:hover {
@@ -162,4 +164,14 @@
   color: #222;
 
   font-family: sans-serif;
+}
+
+#cost-div:first-child {
+  color: #ddd;
+}
+
+#chat-message-input {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
 }
