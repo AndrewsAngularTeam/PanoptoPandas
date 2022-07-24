@@ -87,7 +87,7 @@
   opacity: 0.5;
   transition: 0.2s ease;
 
-  column-gap: 15px;
+  column-gap: 25px;
 
   padding: 0 20px;
 
@@ -184,7 +184,7 @@
 #chat-message-input {
   display: flex;
   align-items: center;
-  column-gap: 25px;
+  column-gap: 10px;
 
   margin-top: -3px;
 }
