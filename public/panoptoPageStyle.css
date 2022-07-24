@@ -72,7 +72,21 @@
 }
 
 #chat-message-input-box {
-  display: table;
+  position: absolute;
+
+  bottom: 0;
+  left: 0;
+
+  width: 600px;
+  height: 50px;
+
+  background-color: white;
+
+  border-radius: 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #chat-message-input-field {
@@ -81,4 +95,7 @@
 
 #chat-message-input-field-container {
   display: table-cell;
+}
+
+#chat-message-input-button {
 }
