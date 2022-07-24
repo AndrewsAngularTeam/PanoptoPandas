@@ -37,13 +37,17 @@ function triggerPandaPayout() {
   injectPopup();
 }
 
-window.setTimeout(() => {
+setTimeout(() => {
   addEventListeners();
 }, 4000);
 
 function addEventListeners(attempt = 0) {
   if (attempt < 3) {
-    const video = document.getElementById("secondaryVideo");
+    let video = document.getElementById("primaryVideo");
+    if (!video) {
+      video = document.getElementById("secondaryVideo");
+    }
+
     if (video) {
       video.addEventListener("play", (event) => {
         handlePlay();
@@ -51,9 +55,13 @@ function addEventListeners(attempt = 0) {
       video.addEventListener("pause", (event) => {
         handlePause();
       });
+
+      createChatInputElement();
     } else {
       console.log("[panoptoPage.js] Timeout finished, element not found trying again in 3 seconds");
-      addEventListeners(attempt + 1);
+      setTimeout(() => {
+        addEventListeners(attempt + 1);
+      }, 3000);
     }
   } else {
     console.log("[panoptoPage.js] Unable to find video element in 3 attempts");
@@ -125,6 +133,55 @@ function createPopupElement() {
 }
 
 createPopupElement();
+
+const handleSendChat = () => {
+  const input = document.getElementById("chat-message-input-field");
+  const message = input.value;
+  if (message.length > 0) {
+    // postChat(message);
+    input.value = "";
+  }
+}
+
+function createChatInputElement() {
+  const id = "chat-message-input-box";
+
+  const old = document.getElementById(id);
+  if (old !== undefined && old !== null) {
+    old.remove();
+  }
+
+  const inputField = document.createElement("input");
+  inputField.id = "chat-message-input-field";
+  inputField.type = "text";
+
+  const inputBtn = document.createElement("input");
+  inputBtn.id = "chat-message-input-button";
+  inputBtn.type = "button";
+  inputBtn.value = "Send";
+  inputBtn.addEventListener("click", handleSendChat);
+
+  const div2 = document.createElement("div");
+  div2.id = "chat-message-input-field-container";
+  div2.appendChild(inputField);
+
+  const div = document.createElement("div");
+  div.id = id;
+  div.style.position = "absolute";
+  div.style.bottom = 0;
+  div.style.left = 0;
+  div.style.width = "400px";
+
+  div.appendChild(div2);
+  div.appendChild(inputBtn);
+
+  const video = document.body.getElementsByClassName("player-layout-controls-container");
+  if (video.length === 0) {
+    return;
+  }
+
+  video[0].appendChild(div);
+}
 
 const injectPopup = () => {
   let frame = document.getElementById(id);

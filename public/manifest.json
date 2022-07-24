@@ -26,7 +26,7 @@
       "run_at": "document_end"
     },
     {
-      "matches": ["https://auckland.au.panopto.com/Panopto/Pages/*"],
+      "matches": ["https://*.panopto.com/Panopto/Pages/*"],
       "js": ["./static/js/panoptoPage.js"],
       "css": ["./panoptoPageStyle.css"],
       "all_frames": false,
