@@ -27,14 +27,18 @@ function App() {
     getCurrentTabUId((id) => {
       id &&
         chrome.tabs.sendMessage(id, message, (response) => {
-          if (response && response.userId) {
-            setUserId(response.userId);
+          if (response == null) {
+            alert("The userId does not exist in local storage. Please login first.");
             setLoading(false);
-            return;
+            setIsSignInModalOpen(true);
+          } else if (response === "") {
+            alert("The userId in local storage is an empty string :( Please fix.");
+            setLoading(false);
+            setIsSignInModalOpen(true);
+          } else {
+            setUserId(response);
+            setLoading(false);
           }
-
-          setLoading(true);
-          setIsSignInModalOpen(true);
         });
     });
 
