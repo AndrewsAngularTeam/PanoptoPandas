@@ -83,6 +83,8 @@ const Options = () => {
     <Canvas
       camera={{ position: [0, 2, 4], fov: 10, near: 0.001, far: 100 }}
       onCreated={(state) => state.gl.setClearColor(0x000000, 0)}
+      gl={{ antialias: true, toneMapping: THREE.NoToneMapping }}
+      linear
     >
       <Suspense fallback={null}>
         <directionalLight />
